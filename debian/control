@@ -1,0 +1,14 @@
+Source: grml-network
+Section: grml
+Priority: optional
+Maintainer: Michael Prokop <mika@grml.org>
+Build-Depends: debhelper (>= 5)
+Standards-Version: 3.7.2
+
+Package: grml-network
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, zsh
+Suggests: wireless-tools, pptp-linux, wvdial, nmap, pppoeconf, isdnutils-base
+Description: network related helper scripts
+ This package provides scripts for network related
+ tasks which should make life easier.

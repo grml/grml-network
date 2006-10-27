@@ -1,0 +1,9 @@
+grml-network for Debian
+-----------------------
+
+Please notice that the package does *not* depend from all the
+packages which are used in the scripts. Instead the field
+Suggests: contains the packages which might be interesting
+for the tasks of the scripts.
+
+ -- Michael Prokop <mika@grml.org>, Sat, 28 Oct 2006 00:36:01 +0200

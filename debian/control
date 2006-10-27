@@ -9,6 +9,7 @@ Package: grml-network
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}, zsh
 Suggests: wireless-tools, pptp-linux, wvdial, nmap, pppoeconf, isdnutils-base
+Conflicts: grml-scripts (< 0.8-26)
 Description: network related helper scripts
  This package provides scripts for network related
  tasks which should make life easier.

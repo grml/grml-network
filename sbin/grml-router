@@ -28,13 +28,19 @@ fi
 . $CONFIG_FILE
 
 if [ -z "$OUTDEV" ] ; then
-    eerror "Outgouing device is not set in $CONFIG_FILE"
-    exit 1
+    eewarn "Outgoing device is not set in $CONFIG_FILE"
+    eewarn "Setting Outgoing device to auto"
+    OUTDEV=auto
 fi
 
 case "$OUTDEV" in
     auto|default)
     OUTDEV=$(defaultGWDev)
+    if [ -z "$OUTDEV" ] ; then
+	    eerror "The outgoing device could not be determined."
+	    eerror "Please adjust OUTDEV in $CONFIG_FILE"
+	    exit 1
+    fi
     ;;
 esac
 

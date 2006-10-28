@@ -1,3 +1,10 @@
+grml-network (0.1-2) unstable; urgency=low
+
+  * Applied patch from schula to grml-router for better
+    error handling with outgoing device.
+
+ -- Michael Prokop <mika@grml.org>  Sat, 28 Oct 2006 11:23:01 +0200
+
 grml-network (0.1-1) unstable; urgency=low
 
   * Initial release.

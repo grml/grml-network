@@ -1,3 +1,9 @@
+grml-network (0.1-4) unstable; urgency=low
+
+  * netcardconfig: added support for ipw3945
+
+ -- Michael Prokop <mika@grml.org>  Mon,  4 Dec 2006 14:56:00 +0100
+
 grml-network (0.1-3) unstable; urgency=low
 
   * Use 'Architecture: all' in debian/control so we can use the

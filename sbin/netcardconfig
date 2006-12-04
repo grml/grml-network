@@ -4,7 +4,7 @@
 # Authors:       Klaus Knopper 2002, Niall Walsh + Stefan Lippers-Hollmann 2005, Michael Prokop <mika@grml.org>, Marcel Wichern <marcel@grml.org>
 # Bug-Reports:   see http://grml.org/bugs/
 # License:       This file is licensed under the GPL v2.
-# Latest change: Mit Okt 04 11:52:26 CEST 2006 [mika]
+# Latest change: Mon Dez 04 14:55:58 CET 2006 [mika]
 ################################################################################
 # Changes have been merged from Kanotix's netcardconfig taken from
 # http://kanotix.com/files/debian/pool/main/n/netcardconfig-kanotix/
@@ -270,7 +270,7 @@ configiface() {
       ath_pci)
         WPA_DEV="madwifi"
         ;;
-      ipw2200|ipw2100)
+      ipw2200|ipw2100|ipw3945)
         WPA_DEV="wext"
         ;;
       hostap)

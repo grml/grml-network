@@ -4,7 +4,7 @@
 # Authors:       Klaus Knopper 2002, Niall Walsh + Stefan Lippers-Hollmann 2005, Michael Prokop <mika@grml.org>, Marcel Wichern <marcel@grml.org>
 # Bug-Reports:   see http://grml.org/bugs/
 # License:       This file is licensed under the GPL v2.
-# Latest change: Mon Dez 04 14:55:58 CET 2006 [mika]
+# Latest change: Sam Jän 27 18:15:42 CET 2007 [mika]
 ################################################################################
 # Changes have been merged from Kanotix's netcardconfig taken from
 # http://kanotix.com/files/debian/pool/main/n/netcardconfig-kanotix/
@@ -309,7 +309,7 @@ configiface() {
       fi
         WPAON=1
         KEY=""
-        WPASECRET=$(awk	'/network/{if(found){found=0}else{found=1}}/ssid/{if(/ssid="'"$ESSID"'"/){found=1}else{found=0}}/#scan_ssid=1/#psk=/{if(found){gsub(/^\W*#psk="/,"");gsub(/"\W*$/,"");print}}' /etc/wpa_supplicant.conf)
+        WPASECRET=$(awk '/network/{if(found){found=0}else{found=1}}/ssid/{if(/ssid="'"$ESSID"'"/){found=1}else{found=0}}/#scan_ssid=1/#psk=/{if(found){gsub(/^\W*#psk="/,"");gsub(/"\W*$/,"");print}}' /etc/wpa_supplicant.conf)
 
         $DIALOG --inputbox "$MESSAGEW23 $ESSID" 15 50 "$WPASECRET" 2>"$TMP" || bailout 1
         WPASECRET=$(sed -e 's/\\/\\/g' "$TMP") && rm -r "$TMP"
@@ -373,7 +373,8 @@ configiface() {
         /netmask/{if(found){netmask=$NF}}
         /broadcast/{if(found){broadcast=$NF}}
         /gateway/{if(found){gateway=$NF}}
-        END{print address" "netmask" "broadcast" "gateway}' /etc/network/interfaces >"$TMP"
+        /dns-nameservers/{if(found){dns-nameservers=$NF}}
+        END{print address" "netmask" "broadcast" "gateway" "dns-nameservers}' /etc/network/interfaces >"$TMP"
       read IP NM BC DG <"$TMP"
       rm -f "$TMP"
     fi
@@ -400,7 +401,7 @@ configiface() {
     if [ -w /etc/network/interfaces ]; then
       awk '/iface/{if(/'"$DV"'/){found=1}else{found=0}}
         {if(!found){print}}
-        END{print "\niface '"$DV"' inet static\n\taddress '"$IP"'\n\tnetmask '"$NM"'\n\tnetwork '"${IP%.*}.0"'";if("'"$BC"'"!=""){print "\tbroadcast '"$BC"'"};if("'"$DG"'"!=""){print "\tgateway '"$DG"'"};if("'"$IWOURLINE"'"!=""){print "'"$IWOURLINE"'"};print "\n"}' \
+        END{print "\niface '"$DV"' inet static\n\taddress '"$IP"'\n\tnetmask '"$NM"'\n\tnetwork '"${IP%.*}.0"'";if("'"$BC"'"!=""){print "\tbroadcast '"$BC"'"};if("'"$DG"'"!=""){print "\tgateway '"$DG"'"};if("'"$NS"'"!=""){print "\tdns-nameservers '"$NS"'"};if("'"$IWOURLINE"'"!=""){print "'"$IWOURLINE"'"};print "\n"}' \
         /etc/network/interfaces >"$TMP"
 
       cat "$TMP" >/etc/network/interfaces
@@ -410,20 +411,21 @@ configiface() {
       #addauto
     fi
 
-    if [ -n "$NS" ]; then
-      more=""
-
-      for i in $NS; do
-        if [ -z "$more" ]; then
-          more=yes
-          echo "$MESSAGE11 $i"
-          echo "nameserver $i" >/etc/resolv.conf
-        else
-          echo "$MESSAGE12 $i"
-          echo "nameserver $i" >>/etc/resolv.conf
-        fi
-      done
-    fi
+# we are using resolvconf, so don't write to /etc/resolv.conf
+#    if [ -n "$NS" ]; then
+#      more=""
+#
+#      for i in $NS; do
+#        if [ -z "$more" ]; then
+#          more=yes
+#          echo "$MESSAGE11 $i"
+#          echo "nameserver $i" >/etc/resolv.conf
+#        else
+#          echo "$MESSAGE12 $i"
+#          echo "nameserver $i" >>/etc/resolv.conf
+#        fi
+#      done
+#    fi
   fi
   echo "Done."
 }

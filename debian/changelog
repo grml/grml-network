@@ -1,3 +1,11 @@
+grml-network (0.1-5) unstable; urgency=low
+
+  * Use resolvconf infrastructure for DNS setup: write dns-nameservers
+    options to /etc/network/interfaces instead of direct writing to
+    /etc/resolv.conf. This should fix issue87 and issue74.
+
+ -- Michael Prokop <mika@grml.org>  Sat, 27 Jan 2007 18:15:54 +0100
+
 grml-network (0.1-4) unstable; urgency=low
 
   * netcardconfig: added support for ipw3945

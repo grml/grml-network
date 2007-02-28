@@ -1,3 +1,10 @@
+grml-network (0.1-8) unstable; urgency=low
+
+  * grml-vpnc-tugraz: add (deactivated by default) template
+    'Rekeying interval 21600'
+
+ -- Michael Prokop <mika@grml.org>  Wed, 28 Feb 2007 09:57:49 +0100
+
 grml-network (0.1-7) unstable; urgency=low
 
   * Fix path for routersetup within manpage, thanks for reporting,

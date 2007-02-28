@@ -4,7 +4,7 @@
 # Authors:       grml-team (grml.org), (c) Michael Prokop <mika@grml.org>
 # Bug-Reports:   see http://grml.org/bugs/
 # License:       This file is licensed under the GPL v2.
-# Latest change: Tue Mar 28 10:02:46 CEST 2006 [mika]
+# Latest change: Die Feb 27 14:14:34 CET 2007 [mika]
 ################################################################################
 
 # Documentation:
@@ -68,6 +68,7 @@ Perfect Forward Secrecy dh2
 IPSec gateway $GATEWAY
 IPSec ID default
 IPSec secret default
+# Rekeying interval 21600
 Xauth username $ACCOUNTNAME
 Xauth password $PASSWORD
 

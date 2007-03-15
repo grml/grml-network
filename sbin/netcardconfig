@@ -4,7 +4,7 @@
 # Authors:       Michael Prokop <mika@grml.org>, Marcel Wichern 2006, Klaus Knopper 2002, Niall Walsh + Stefan Lippers-Hollmann 2004-2007
 # Bug-Reports:   see http://grml.org/bugs/
 # License:       This file is licensed under the GPL v2.
-# Latest change: Sam Jän 27 19:28:54 CET 2007 [mika]
+# Latest change: Don Mär 15 20:36:48 CET 2007 [mika]
 ################################################################################
 # Changes have been merged from Kanotix's and Sidux's netcardconfig:
 # http://kanotix.com/files/debian/pool/main/n/netcardconfig-kanotix/
@@ -80,6 +80,19 @@ writeiwline() {
 
   IWOURLINE="$IWOURLINE $IWPREUPLINE"
   #echo "DEBUG: for interfaces $IWOURLINE"
+}
+
+generate_udev_entry() {
+  interface=''
+  echo "# Auto generated script from netcardconfig on $(date)
+# Executing this script generates an entry in /etc/udev/rules.d/z25_persistent-net.rules
+# for you, please check z25_persistent-net.rules for existing entries before
+# running this script (once more)." > /etc/udev/scripts/netcardconfig
+  for interface in `ifconfig | awk '/^[a-z]/ &&!/^lo/{ print $1} '` ; do
+      echo -n "INTERFACE=$interface /lib/udev/write_net_rules " >> /etc/udev/scripts/netcardconfig && \
+      udevinfo -a -p /sys/class/net/$interface | awk -F'==' '/address/ {print $2}' >> /etc/udev/scripts/netcardconfig
+  done
+  chmod +x /etc/udev/scripts/netcardconfig && /etc/udev/scripts/netcardconfig 1>/dev/null
 }
 
 device2props() {
@@ -540,7 +553,13 @@ while (true); do
     if ! ifup $DV; then
       $DIALOG --yesno "$MESSAGE14" 15 50 || IFACEDONE="DONE"
     else
-      $DIALOG --yesno "$MESSAGE15" 15 50 && addauto || remauto
+      if $DIALOG --yesno "$MESSAGE15" 12 50 ; then
+         addauto
+         # get persistent interface names across reboots
+         generate_udev_entry
+      else
+         remauto
+      fi
       IFACEDONE="DONE"
     fi
   done

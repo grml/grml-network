@@ -7,7 +7,7 @@ Standards-Version: 3.7.2
 
 Package: grml-network
 Architecture: all
-Depends: ${shlibs:Depends}, ${misc:Depends}, zsh
+Depends: ${shlibs:Depends}, ${misc:Depends}, zsh, psmisc
 Suggests: wireless-tools, wpasupplicant, pptp-linux, wvdial, nmap, pppoeconf, isdnutils-base, resolvconf
 Conflicts: grml-scripts (<< 0.8-26)
 Description: network related helper scripts

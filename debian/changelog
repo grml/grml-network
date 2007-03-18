@@ -1,3 +1,9 @@
+grml-network (0.1.10) unstable; urgency=low
+
+  * Add psmisc to depends (killall is shipped with psmisc).
+
+ -- Michael Prokop <mika@grml.org>  Sun, 18 Mar 2007 14:33:09 +0100
+
 grml-network (0.1.9) unstable; urgency=low
 
   * Support generation of udev rules for persistent interface names

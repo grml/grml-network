@@ -1,3 +1,11 @@
+grml-network (0.1.11) unstable; urgency=low
+
+  * Remove german umlauts from scripts to avoid problems with
+    iso<->utf on console. Thanks for reporting and help in debugging
+    the problem, David Vilar Benet!
+
+ -- Michael Prokop <mika@grml.org>  Fri, 20 Apr 2007 00:38:03 +0200
+
 grml-network (0.1.10) unstable; urgency=low
 
   * Add psmisc to depends (killall is shipped with psmisc).

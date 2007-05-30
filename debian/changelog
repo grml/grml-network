@@ -1,3 +1,14 @@
+grml-network (0.1.12) unstable; urgency=low
+
+  * Deactivate CONFIG_DHCP in /etc/grml/autconfig if user
+    wants to use configuration via /etc/network/interfaces.
+    [Closes: issue225]
+  * generate_udev_entry: send errors to /dev/null as well because
+    the the /lib/udev/write_net_rules script script outputs a sed
+    warning which might unsettle users
+
+ -- Michael Prokop <mika@grml.org>  Wed, 30 May 2007 10:26:42 +0200
+
 grml-network (0.1.11) unstable; urgency=low
 
   * Remove german umlauts from scripts to avoid problems with

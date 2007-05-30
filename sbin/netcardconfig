@@ -4,7 +4,7 @@
 # Authors:       Michael Prokop <mika@grml.org>, Marcel Wichern 2006, Klaus Knopper 2002, Niall Walsh + Stefan Lippers-Hollmann 2004-2007
 # Bug-Reports:   see http://grml.org/bugs/
 # License:       This file is licensed under the GPL v2.
-# Latest change: Don Mär 15 20:36:48 CET 2007 [mika]
+# Latest change: Mit Mai 30 10:26:39 CEST 2007 [mika]
 ################################################################################
 # Changes have been merged from Kanotix's and Sidux's netcardconfig:
 # http://kanotix.com/files/debian/pool/main/n/netcardconfig-kanotix/
@@ -92,7 +92,15 @@ generate_udev_entry() {
       echo -n "INTERFACE=$interface /lib/udev/write_net_rules " >> /etc/udev/scripts/netcardconfig && \
       udevinfo -a -p /sys/class/net/$interface | awk -F'==' '/address/ {print $2}' >> /etc/udev/scripts/netcardconfig
   done
-  chmod +x /etc/udev/scripts/netcardconfig && /etc/udev/scripts/netcardconfig 1>/dev/null
+  # send errors to /dev/null as well because the sed line inside the /lib/udev/write_net_rules
+  # script outputs a sed warning which might unsettle users
+  chmod +x /etc/udev/scripts/netcardconfig && /etc/udev/scripts/netcardconfig 1>/dev/null 2>&1
+}
+
+disable_config_dhcp() {
+  if grep -q CONFIG_DHCP /etc/grml/autoconfig ; then
+     sed -i "s|^CONFIG_DHCP.*|CONFIG_DHCP='no'|" /etc/grml/autoconfig
+  fi
 }
 
 device2props() {
@@ -557,6 +565,8 @@ while (true); do
          addauto
          # get persistent interface names across reboots
          generate_udev_entry
+	 # make sure we don't run the dhcp stuff when using /etc/network/interfaces
+	 disable_config_dhcp
       else
          remauto
       fi

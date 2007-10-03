@@ -1,0 +1,70 @@
+#!/bin/bash
+# Filename:      grml-addtun
+# Purpose:       Program to create tun/tap devices and add them to a bridge
+# Authors:       Michael Gebetsroither <gebi@grml.org>
+# Bug-Reports:   see http://grml.org/bugs/
+# License:       This file is licensed under the GPL v2.
+################################################################################
+# grml-addtun [OPTIONS] <tun0> <tun1> ...
+
+set -e
+#set -x
+
+OPT_DEL_='false'
+OPT_USER_=''
+OPT_GROUP_=''
+OPT_BRIDGE_=''
+
+while getopts "du:g:b:h" opt; do
+    case "$opt" in
+        d) OPT_DEL_='true' ;;
+        u) OPT_USER_="$OPTARG" ;;
+        g) OPT_GROUP_="$OPTARG" ;;
+        b) OPT_BRIDGE_="$OPTARG" ;;
+        h) printUsage; exit 0 ;;
+        ?) printUsage; exit 1 ;;
+    esac
+done
+shift $(($OPTIND - 1))
+
+
+function fromCmdline()
+{
+    local action_="$1"
+    shift
+
+    while (( $# != 0 )); do
+        case "$1" in
+            "") continue ;;
+        esac
+        $action_ "$1"
+        shift
+    done
+}
+
+function createTun()
+{
+    local args_=''
+    if [[ $OPT_USER_ != '' ]]; then args_="$args_ -u $OPT_USER_"; fi
+    if [[ $OPT_GROUP_ != '' ]]; then args_="$args_ -u $OPT_GROUP_"; fi
+    tunctl -t "$1" $args_
+    if [[ $OPT_BRIDGE_ != '' ]]; then
+        brctl addif "$OPT_BRIDGE_" "$1"
+    fi
+}
+
+function trashTun()
+{
+    if [[ $OPT_BRIDGE_ != '' ]]; then
+        brctl delif "$OPT_BRIDGE_" "$1"
+    fi
+    tunctl -d "$1"
+}
+
+if [[ $OPT_DEL_ == 'false' ]]; then
+    fromCmdline "createTun" "$@"
+else
+    fromCmdline "trashTun" "$@"
+fi
+
+# vim: filetype=sh

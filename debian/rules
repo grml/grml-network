@@ -13,11 +13,13 @@ build: build-stamp
 
 build-stamp:
 	dh_testdir
+	( cd docs && $(MAKE) )
 	touch $@
 
 clean:
 	dh_testdir
 	dh_testroot
+	( cd docs && $(MAKE) clean )
 	rm -f build-stamp
 	dh_clean 
 
@@ -30,6 +32,8 @@ install: build
 	install -m 755 sbin/*        debian/grml-network/usr/sbin/
 	install -m 644 net-functions debian/grml-network/etc/grml/
 	install -m 644 routersetup   debian/grml-network/etc/grml/
+
+	( cd docs && $(MAKE) install DESTDIR=../debian/grml-network )
 
 # Build architecture-independent files here.
 binary-indep: build install

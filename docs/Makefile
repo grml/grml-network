@@ -1,4 +1,5 @@
 install_ = install
+name_ = grml-network
 
 etc = ${DESTDIR}/etc/
 usr = ${DESTDIR}/usr

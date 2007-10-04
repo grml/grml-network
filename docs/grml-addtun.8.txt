@@ -1,4 +1,4 @@
-GRML-ADDTUN(1)
+GRML-ADDTUN(8)
 ==============
 Michael Gebetsroither <michael.geb@gmx.at>
 

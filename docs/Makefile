@@ -41,5 +41,5 @@ install: all
 
 clean:
 	@for i in $(MANPAGES); do \
-		rm -fv $$i.html $$i.xml $$i.gz $$i; done
+		rm -f $$i.html $$i.xml $$i.gz $$i; done
 

@@ -14,6 +14,7 @@ OPT_DEL_='false'
 OPT_USER_=''
 OPT_GROUP_=''
 OPT_BRIDGE_=''
+OPT_AUTO_='false'
 
 
 function printUsage()
@@ -28,7 +29,8 @@ OPTIONS:
    -u <user>    this user should be able to use the tun device
    -g <group>   this group should be able to use the tun device
    -b <bridge>  if given, all tun/tap devices are added/removed from the bridge
-                    bridge is created if not allready existent
+   -a           enable auto mode, eg. create the bridge if not allready existing and
+                    delete it when empty after removing given tun devices
    -h           this help
 EOT
 }
@@ -76,12 +78,13 @@ function die()
 # MAIN
 ##
 
-while getopts "du:g:b:h" opt; do
+while getopts "du:g:b:ah" opt; do
     case "$opt" in
         d) OPT_DEL_='true' ;;
         u) OPT_USER_="$OPTARG" ;;
         g) OPT_GROUP_="$OPTARG" ;;
         b) OPT_BRIDGE_="$OPTARG" ;;
+        a) OPT_AUTO_='true' ;;
         h) printUsage; exit 0 ;;
         ?) printUsage; exit 1 ;;
     esac
@@ -89,13 +92,13 @@ done
 shift $(($OPTIND - 1))
 
 if [[ $OPT_DEL_ == 'false' ]]; then
-    if [[ $OPT_BRIDGE_ != '' ]]; then
+    if [[ $OPT_BRIDGE_ != '' && $OPT_AUTO_ == 'true' ]]; then
         brctl showmacs "$OPT_BRIDGE_" &>/dev/null || brctl addbr "$OPT_BRIDGE_"
     fi
     fromCmdline "createTun" "$@"
 else
     fromCmdline "trashTun" "$@"
-    if [[ $OPT_BRIDGE_ != '' ]]; then
+    if [[ $OPT_BRIDGE_ != '' && $OPT_AUTO_ == 'true' ]]; then
         tmp_="`brctl showmacs "$OPT_BRIDGE_" |wc -l`"
         if (( $tmp_ == 1 )); then
             brctl delbr "$OPT_BRIDGE_"

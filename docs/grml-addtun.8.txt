@@ -1,7 +1,5 @@
 GRML-ADDTUN(8)
 ==============
-Michael Gebetsroither <michael.geb@gmx.at>
-
 
 NAME
 ----
@@ -45,8 +43,9 @@ Show the help message.
 
 EXAMPLES
 --------
-Config sampe for /etc/network/interfaces with bridge and tun/tap devices.
-This creates tap0..tap3 which are part of bridge vnet.
+
+Config sample file for /etc/network/interfaces with bridge and tun/tap devices.
+This creates tap0..tap3 which are part of the bridge vnet.
 
 -------------
     auto vnet

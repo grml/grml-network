@@ -29,7 +29,7 @@ OPTIONS:
    -u <user>    this user should be able to use the tun device
    -g <group>   this group should be able to use the tun device
    -b <bridge>  if given, all tun/tap devices are added/removed from the bridge
-   -a           enable auto mode, eg. create the bridge if not allready existing and
+   -a           enable auto mode, eg. create the bridge if not already existing and
                     delete it when empty after removing given tun devices
    -h           this help
 EOT
@@ -110,4 +110,4 @@ else
     fi
 fi
 
-# vim: filetype=sh
+## END OF FILE #################################################################

@@ -50,8 +50,8 @@ This creates tap0..tap3 which are part of the bridge vnet.
 -------------
     auto vnet
     iface vnet inet static
-        post-up  /root/bin/grml-addtun -u einstein -b vnet tap{0..3}
-        pre-down /root/bin/grml-addtun -u einstein -b vnet -d tap{0..3}
+        post-up  /usr/sbin/grml-addtun -u grml -b vnet tap{0..3}
+        pre-down /usr/sbin/grml-addtun -u grml -b vnet -d tap{0..3}
         bridge_ports none
         address 192.168.10.1
         netmask 255.255.255.0

@@ -3,9 +3,10 @@ grml-network (0.1.13) unstable; urgency=low
   [ Michael Gebetsroither ]
   * added grml-addtun for tun/tap device handling
   * added manpage for grml-addtun
+  * added uml-utilities to Suggests
 
   [ Michael Prokop ]
-  * Some small typo fixes.
+  * some small typo fixes
 
  -- Michael Prokop <mika@grml.org>  Tue, 16 Oct 2007 00:36:19 +0200
 

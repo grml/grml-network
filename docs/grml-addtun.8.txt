@@ -22,7 +22,7 @@ bridge handling.
 OPTIONS
 -------
 *-d*::
-Delete the given tun/tap devices and remove them from the bridge (if given with -b).
+Delete the tun/tap devices and remove them from the bridge (if given with -b).
 
 *-u <user>*::
 Make tun devices useable from <user> without special permissions.

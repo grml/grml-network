@@ -58,12 +58,12 @@ function createTun()
     if [[ $OPT_BRIDGE_ != '' ]]; then
         brctl addif "$OPT_BRIDGE_" "$1"
     fi
-    ifconfig "$1" 0.0.0.0 up
+    ip link set up dev "$1"
 }
 
 function trashTun()
 {
-    ifconfig "$1" down
+    ip link set down dev "$1"
     if [[ $OPT_BRIDGE_ != '' ]]; then
         brctl delif "$OPT_BRIDGE_" "$1"
     fi
@@ -96,6 +96,7 @@ shift $(($OPTIND - 1))
 if [[ $OPT_DEL_ == 'false' ]]; then
     if [[ $OPT_BRIDGE_ != '' && $OPT_AUTO_ == 'true' ]]; then
         brctl showmacs "$OPT_BRIDGE_" &>/dev/null || brctl addbr "$OPT_BRIDGE_"
+        ip link set up dev "$OPT_BRIDGE_"
     fi
     fromCmdline "createTun" "$@"
 else

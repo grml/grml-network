@@ -1,6 +1,6 @@
 #!/bin/bash
-# Filename:      grml-addtun
-# Purpose:       Program to create tun/tap devices and add them to a bridge
+# Filename:      grml-vnet
+# Purpose:       program to create tun/tap devices and add them to a bridge
 # Authors:       Michael Gebetsroither <gebi@grml.org>
 # Bug-Reports:   see http://grml.org/bugs/
 # License:       This file is licensed under the GPL v2.

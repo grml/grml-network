@@ -21,7 +21,7 @@ man1 = $(usr)/share/man/man1/
 	gzip -f --best `echo $^ |sed -e 's/.txt//'`
 
 
-MANPAGES = grml-addtun.8
+MANPAGES = grml-vnet.8
 
 all: doc
 

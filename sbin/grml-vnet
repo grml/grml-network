@@ -104,6 +104,7 @@ else
     if [[ $OPT_BRIDGE_ != '' && $OPT_AUTO_ == 'true' ]]; then
         tmp_="`brctl showmacs "$OPT_BRIDGE_" |wc -l`"
         if (( $tmp_ == 1 )); then
+            ip link set down dev "$OPT_BRIDGE_"
             brctl delbr "$OPT_BRIDGE_"
         else
             die "E: bridge $OPT_BRIDGE_ not empty, not removing"

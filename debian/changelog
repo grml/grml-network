@@ -8,8 +8,9 @@ grml-network (0.1.13) unstable; urgency=low
   * added manpage for grml-vnet
   * added uml-utilities to Suggests
   * grml-vnet: reworked interface activation code
+  * grml-vnet: deactivate bridge before removing
 
- -- Michael Gebetsroither <michael.geb@gmx.at>  Sat, 27 Oct 2007 15:32:28 +0000
+ -- Michael Gebetsroither <michael.geb@gmx.at>  Sat, 27 Oct 2007 15:38:37 +0000
 
 grml-network (0.1.12) unstable; urgency=low
 

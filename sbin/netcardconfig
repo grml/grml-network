@@ -84,6 +84,7 @@ writeiwline() {
 
 generate_udev_entry() {
   interface=''
+  mkdir -p /etc/udev/scripts
   echo "# Auto generated script from netcardconfig on $(date)
 # Executing this script generates an entry in /etc/udev/rules.d/z25_persistent-net.rules
 # for you, please check z25_persistent-net.rules for existing entries before
@@ -400,14 +401,14 @@ configiface() {
     $DIALOG --inputbox "$MESSAGE8 $DV" 10 45 "${BC:-${IP%.*}.255}" 2>"$TMP" || bailout 1
     read BC <"$TMP" ; rm -f "$TMP"
 
-    $DIALOG --inputbox "$MESSAGE9" 10 45 "${DG:-${IP%.*}.254}" 2>"$TMP"
+    $DIALOG --inputbox "$MESSAGE9" 10 45 "${DG:-${IP%.*}.1}" 2>"$TMP"
     read DG <"$TMP" ; rm -f "$TMP"
 
     if [ -f "/etc/resolv.conf" ]; then
       NS="$(awk '/^nameserver/{printf "%s ",$2}' /etc/resolv.conf)"
     fi
 
-    $DIALOG --inputbox "$MESSAGE10" 10 45 "${NS:-${IP%.*}.254}" 2>"$TMP"
+    $DIALOG --inputbox "$MESSAGE10" 10 45 "${NS:-$DG}" 2>"$TMP"
     read NS <"$TMP" ; rm -f "$TMP"
 
     if [ -w /etc/network/interfaces ]; then

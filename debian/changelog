@@ -1,3 +1,10 @@
+grml-network (0.1.15) unstable; urgency=low
+
+  * Suggest x.x.x.1 as default gatway and DNS server instead of x.x.x.254.
+  * Create directory /etc/udev/scripts/ before using it.
+
+ -- Michael Prokop <mika@grml.org>  Mon, 05 Nov 2007 00:15:02 +0100
+
 grml-network (0.1.14) unstable; urgency=low
 
   [ Michael Gebetsroither ]

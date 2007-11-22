@@ -10,8 +10,9 @@ XS-Vcs-Browser: http://hg.grml.org/grml-network/
 
 Package: grml-network
 Architecture: all
-Depends: ${shlibs:Depends}, ${misc:Depends}, zsh, psmisc
-Suggests: wireless-tools, wpasupplicant, pptp-linux, wvdial, nmap, pppoeconf, isdnutils-base, resolvconf, bridge-utils, uml-utilities
+Depends: ${shlibs:Depends}, ${misc:Depends}, zsh, psmisc, dialog
+Recommends: bridge-utils, nmap, pppoeconf, pptp-linux, resolvconf, uml-utilities, vpnc, wireless-tools, wpasupplicant, wvdial
+Suggests: isdnutils-base
 Conflicts: grml-scripts (<< 0.8-26)
 Description: network related helper scripts
  This package provides scripts for network related

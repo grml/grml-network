@@ -1,3 +1,11 @@
+grml-network (0.1.16) unstable; urgency=low
+
+  * Split Suggests into Suggests and Recommends.
+  * Add dialog to Depends and vpnc to Recommends.
+    Thanks Darshaka Pathirana! [Closes: issue344]
+
+ -- Michael Prokop <mika@grml.org>  Thu, 22 Nov 2007 11:17:35 +0100
+
 grml-network (0.1.15) unstable; urgency=low
 
   * Suggest x.x.x.1 as default gatway and DNS server instead of x.x.x.254.

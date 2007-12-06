@@ -1,3 +1,9 @@
+grml-network (0.1.17) unstable; urgency=low
+
+  * Fix manpage handling of xsltproc.
+
+ -- Michael Prokop <mika@grml.org>  Fri, 07 Dec 2007 00:04:53 +0100
+
 grml-network (0.1.16) unstable; urgency=low
 
   * Split Suggests into Suggests and Recommends.

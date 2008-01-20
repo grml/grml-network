@@ -478,9 +478,14 @@ MESSAGEW26=")?   If you say no, your wep key will be stored in /etc/network/inte
 
 
 NETDEVICESCOUNT=0
-LAN=$(tail -n +3 /proc/net/dev|awk -F: '{print $1}'|sed "s/\s*//"|grep -v -e ^lo -e ^vmnet|sort)
+if [ -r /proc/net/dev ] ; then
+   LAN=$(tail -n +3 /proc/net/dev | awk -F: '{print $1}'| sed "s/\s*//" | grep -v -e ^lo -e ^vmnet | sort)
+else
+   LAN=""
+fi
 [ -n "$WLAN" ] || WLAN=$(tail -n +3 /proc/net/wireless 2>/dev/null|awk -F: '{print $1}'|sort)
 unset LAN_DEVICES WLAN_DEVICES FIREWIRE_DEVICES NETDEVICES
+
 while read dev mac; do
 #echo "Making NETDEVICES $NETDEVICESCOUNT $dev"
   iswlan=$(echo $dev $WLAN|tr ' ' '\n'|sort|uniq -d)

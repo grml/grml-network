@@ -4,7 +4,7 @@
 # Authors:       grml-team (grml.org), (c) Andreas Gredler <jimmy@grml.org>
 # Bug-Reports:   see http://grml.org/bugs/
 # License:       This file is licensed under the GPL v2.
-# Latest change: Fre Aug 11 11:41:22 CEST 2006 [mika]
+# Latest change: Sam Jän 26 00:12:46 CET 2008 [mika]
 ################################################################################
 
 ################################################################################
@@ -13,7 +13,7 @@
 # by Wolfgang Scheicher.
 ################################################################################
 
-LANG=C
+export LANG=C
 
 if [ "$UID" != 0 ]; then
 #  sudo $0

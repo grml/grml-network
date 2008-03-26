@@ -1,3 +1,10 @@
+grml-network (0.2.1) unstable; urgency=low
+
+  * grml-bridge: remove '-e' option in dhclient call.
+    Thanks to Tobias Walkowiak for reporting and the fix.
+
+ -- Michael Prokop <mika@grml.org>  Wed, 26 Mar 2008 23:02:57 +0100
+
 grml-network (0.2.0) unstable; urgency=low
 
   * grml-pptp-inode, grml-pptp-vcgraz, grml-pptp-xdsl-students and

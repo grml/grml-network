@@ -4,7 +4,7 @@
 # Authors:       grml-team (grml.org), (c) Michael Prokop <mika@grml.org>
 # Bug-Reports:   see http://grml.org/bugs/
 # License:       This file is licensed under the GPL v2.
-# Latest change: Mit Okt 11 23:02:51 CEST 2006 [moemoe]
+# Latest change: Mit Mär 26 23:02:52 CET 2008 [mika]
 ################################################################################
 
 # exit on any error
@@ -73,7 +73,7 @@ case "$1" in
                case $BRIDGE_CONFIG in
                        DHCP)
                          einfo "starting dhclient for $BRIDGE_NAME"
-                         dhclient -e -pf /var/run/dhclient.$BRIDGE_NAME.pid -lf /var/run/dhclient.$BRIDGE_NAME.leases $BRIDGE_NAME
+                         dhclient -pf /var/run/dhclient.$BRIDGE_NAME.pid -lf /var/run/dhclient.$BRIDGE_NAME.leases $BRIDGE_NAME
                        ;;
                        FIXED)
                          einfo "Setting IP for $BRIDGE_NAME to $BRIDGE_IP"

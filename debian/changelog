@@ -1,3 +1,11 @@
+grml-network (0.2.3) unstable; urgency=low
+
+  * Depend on grml-etc-core, as several scripts use
+    /etc/grml/script-functions. Thanks to Darshaka Pathirana!
+    [Closes: issue515]
+
+ -- Michael Prokop <mika@grml.org>  Tue, 16 Sep 2008 00:58:44 +0200
+
 grml-network (0.2.2) unstable; urgency=low
 
   * Fix UID check in grml-pptp-inode.

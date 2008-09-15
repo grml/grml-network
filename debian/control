@@ -3,14 +3,14 @@ Section: grml
 Priority: optional
 Maintainer: Michael Prokop <mika@grml.org>
 Build-Depends: debhelper (>= 5), xsltproc, docbook-xsl, asciidoc
-Standards-Version: 3.7.2
+Standards-Version: 3.8.0
 Homepage: http://hg.grml.org/grml-network/
 XS-Vcs-hg: http://hg.grml.org/grml-network/
 XS-Vcs-Browser: http://hg.grml.org/grml-network/
 
 Package: grml-network
 Architecture: all
-Depends: ${shlibs:Depends}, ${misc:Depends}, zsh, psmisc, dialog
+Depends: ${shlibs:Depends}, ${misc:Depends}, zsh, psmisc, dialog, grml-etc-core
 Recommends: bridge-utils, nmap, pppoeconf, pptp-linux, resolvconf, uml-utilities, vpnc, wireless-tools, wpasupplicant, wvdial
 Suggests: isdnutils-base
 Conflicts: grml-scripts (<< 0.8-26)

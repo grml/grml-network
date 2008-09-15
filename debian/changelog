@@ -4,8 +4,9 @@ grml-network (0.2.3) unstable; urgency=low
     /etc/grml/script-functions. Thanks to Darshaka Pathirana!
     [Closes: issue515]
   * Bump to Standard-Version 3.8.0 (no further changes).
+  * Fix binary-arch-rules-but-pkg-is-arch-indep in debian/rules.
 
- -- Michael Prokop <mika@grml.org>  Tue, 16 Sep 2008 00:59:29 +0200
+ -- Michael Prokop <mika@grml.org>  Tue, 16 Sep 2008 01:02:53 +0200
 
 grml-network (0.2.2) unstable; urgency=low
 

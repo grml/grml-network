@@ -22,9 +22,9 @@ getWlanDevices() {
 
 # getLanDriver deviceName
 getLanDriver() {
-  DEVICE="$1"
-  echo $DEVICE | grep -q ath && DEVICE=$(echo $DEVICE | sed 's/ath/wifi/')
-  ethtool -i $DEVICE 2>/dev/null | awk '/^driver:/{print $2}'
+    if [ -e /sys/class/net/$1/device/driver ] ; then
+        basename $(readlink /sys/class/net/$1/device/driver)
+    fi
 }
 
 ## END OF FILE #################################################################

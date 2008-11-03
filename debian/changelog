@@ -1,3 +1,10 @@
+grml-network (0.2.5) unstable; urgency=low
+
+  * net-functions: getLanDriver() does not return driver for madwifi.
+    Thanks for the fix to Ulrich Dangel. [Closes: issue551]
+
+ -- Michael Prokop <mika@grml.org>  Mon, 03 Nov 2008 18:22:01 +0100
+
 grml-network (0.2.4) unstable; urgency=low
 
   * net-functions: if there is a default route not via an ip

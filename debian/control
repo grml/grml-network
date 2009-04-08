@@ -3,7 +3,7 @@ Section: grml
 Priority: optional
 Maintainer: Michael Prokop <mika@grml.org>
 Build-Depends: debhelper (>= 5), xsltproc, docbook-xsl, asciidoc
-Standards-Version: 3.8.0
+Standards-Version: 3.8.1
 Homepage: http://git.grml.org/?p=grml-network.git
 Vcs-git: git://git.grml.org/grml-network.git
 Vcs-Browser: http://git.grml.org/?p=grml-network.git
@@ -16,4 +16,10 @@ Suggests: isdnutils-base
 Conflicts: grml-scripts (<< 0.8-26)
 Description: network related helper scripts
  This package provides scripts for network related
- tasks which should make life easier.
+ tasks which should make life easier. Like:
+ .
+  * grml-ap: set up your box as access point
+  * grml-bridge: set up your box as bridge
+  * grml-network: interface for several network related tasks
+  * grml-router: set up your box as NAT-router
+  * netcardconfig: console based network configuration tool

@@ -45,7 +45,7 @@ case "$1" in
                 no|false)
                     ;;
                 *)
-                    einfo "Setting Spanning-Tree Protocol (STP) to status"
+                    einfo "Setting Spanning-Tree Protocol (STP) to status $STP"
                     brctl stp "$BRIDGE_NAME" $STP
                     eend $?
                     ;;
@@ -92,7 +92,9 @@ case "$1" in
         eindent
             if [ $BRIDGE_CONFIG = DHCP ]; then
                einfo "Terminating dhclient for $BRIDGE_NAME"
-               kill $(cat /var/run/dhclient.$BRIDGE_NAME.pid);
+               if [ -r "/var/run/dhclient.$BRIDGE_NAME.pid" ] ; then
+                 kill "$(cat /var/run/dhclient.$BRIDGE_NAME.pid)" || /bin/true
+               fi
             fi
             einfo "Removing network devices from $BRIDGE_NAME: "
 
@@ -115,6 +117,7 @@ case "$1" in
             ip link set "$BRIDGE_NAME" down; eend $?
 
             einfo "Removing bridge device"
+            ifconfig "$BRIDGE_NAME" down || /bin/true
             brctl delbr "$BRIDGE_NAME"
             eend $?
         eoutdent

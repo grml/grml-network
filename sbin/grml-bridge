@@ -51,6 +51,14 @@ case "$1" in
                     ;;
             esac
 
+            einfo "Bringing network device up: "
+            eindent
+               for i in $BRIDGE_DEVICES ; do
+                   einfo "$i"
+                   ifconfig "$i" 0.0.0.0 up ; eend $?
+               done
+            eoutdent
+
             einfo "Enabling promiscous mode on: "
             eindent
                for i in $BRIDGE_DEVICES ; do

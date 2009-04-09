@@ -1,3 +1,11 @@
+grml-network (0.2.7) unstable; urgency=low
+
+  * grml-bridge: bring network devices up by default using
+    'ifconfig $DEV 0.0.0.0 up'. This makes configuration more
+    reliable according to my tests.
+
+ -- Michael Prokop <mika@grml.org>  Thu, 09 Apr 2009 11:37:25 +0200
+
 grml-network (0.2.6) unstable; urgency=low
 
   * grml-bridge:

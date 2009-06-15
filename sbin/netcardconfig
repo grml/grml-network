@@ -4,7 +4,6 @@
 # Authors:       Michael Prokop <mika@grml.org>, Marcel Wichern 2006, Klaus Knopper 2002, Niall Walsh + Stefan Lippers-Hollmann 2004-2007
 # Bug-Reports:   see http://grml.org/bugs/
 # License:       This file is licensed under the GPL v2.
-# Latest change: Mit Mai 30 10:26:39 CEST 2007 [mika]
 ################################################################################
 # Changes have been merged from Kanotix's and Sidux's netcardconfig:
 # http://kanotix.com/files/debian/pool/main/n/netcardconfig-kanotix/
@@ -91,7 +90,11 @@ generate_udev_entry() {
 # running this script (once more)." > /etc/udev/scripts/netcardconfig
   for interface in `ifconfig | awk '/^[a-z]/ &&!/^lo/{ print $1} '` ; do
       echo -n "INTERFACE=$interface /lib/udev/write_net_rules " >> /etc/udev/scripts/netcardconfig && \
-      udevinfo -a -p /sys/class/net/$interface | awk -F'==' '/address/ {print $2}' >> /etc/udev/scripts/netcardconfig
+      if which udevadm >/dev/null 2>&1; then
+        udevadm info -a -p /sys/class/net/$interface | awk -F'==' '/address/ {print $2}' >> /etc/udev/scripts/netcardconfig
+      else
+        udevinfo -a -p /sys/class/net/$interface | awk -F'==' '/address/ {print $2}' >> /etc/udev/scripts/netcardconfig
+      fi
   done
   # send errors to /dev/null as well because the sed line inside the /lib/udev/write_net_rules
   # script outputs a sed warning which might unsettle users

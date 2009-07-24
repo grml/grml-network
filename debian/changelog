@@ -1,3 +1,10 @@
+grml-network (0.2.9) unstable; urgency=low
+
+  * scanmodem: apply patch by Joerg Woelke which addresses the
+    right way to specify find options (thanks!). [Closes: issue712]
+
+ -- Michael Prokop <mika@grml.org>  Fri, 24 Jul 2009 22:55:07 +0200
+
 grml-network (0.2.8) unstable; urgency=low
 
   * netcardconfig: use 'udevadm info' instead of 'udevinfo' if

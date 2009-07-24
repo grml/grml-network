@@ -936,7 +936,7 @@ fi # SIL_id
 # slamr.ko test
 if [ -x /bin/dmesg ] ; then
   DMESG=/bin/dmesg
-  SLAMR=`find /lib/modules/ -name slamr.* -mindepth 3 -maxdepth 5 | grep $SYS` 
+  SLAMR=$(find /lib/modules/ -mindepth 3 -maxdepth 5 -name slamr.* | grep $SYS)
 fi
 
 if test -n "$DMESG" -a -n "$SLAMR" -a -n "$smart" ; then

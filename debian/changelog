@@ -1,3 +1,11 @@
+grml-network (0.3.1) unstable; urgency=low
+
+  * New script grml-sniff for configuring a network sniffing setup.
+  * Fix typos in grml-bridge.
+  * Drop 'Latest change' headers from all files.
+
+ -- Michael Prokop <mika@grml.org>  Mon, 17 Aug 2009 11:23:58 +0200
+
 grml-network (0.2.9) unstable; urgency=low
 
   * scanmodem: apply patch by Joerg Woelke which addresses the

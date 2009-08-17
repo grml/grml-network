@@ -4,11 +4,7 @@
 # Authors:       grml-team (grml.org), (c) Michael Prokop <mika@grml.org>
 # Bug-Reports:   see http://grml.org/bugs/
 # License:       This file is licensed under the GPL v2.
-# Latest change: Mit Mär 26 23:02:52 CET 2008 [mika]
 ################################################################################
-
-# exit on any error
-set -e
 
 CONFIG_FILE=/etc/grml/routersetup
 . /etc/grml/lsb-functions
@@ -59,7 +55,7 @@ case "$1" in
                done
             eoutdent
 
-            einfo "Enabling promiscous mode on: "
+            einfo "Enabling promiscuous mode on: "
             eindent
                for i in $BRIDGE_DEVICES ; do
                    einfo "$i"
@@ -88,7 +84,7 @@ case "$1" in
                          ip a a $BRIDGE_IP dev $BRIDGE_NAME
                        ;;
                        NONE)
-                         einfo "Leaving $BRIDGE_NAME uconfigured"
+                         einfo "Leaving $BRIDGE_NAME unconfigured"
                        ;;
                esac
             eoutdent
@@ -113,7 +109,7 @@ case "$1" in
                done
             eoutdent
 
-            einfo "Disabling promiscous mode on: "
+            einfo "Disabling promiscuous mode on: "
             eindent
                for i in $BRIDGE_DEVICES ; do
                    einfo "$i "

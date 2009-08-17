@@ -4,11 +4,7 @@
 # Authors:       grml-team (grml.org), Ulrich Dangel <schula@grml.org>, Michael Prokop <mika@grml.org>
 # Bug-Reports:   see http://grml.org/bugs/
 # License:       This file is licensed under the GPL v2.
-# Latest change: Sam Okt 07 23:18:38 CEST 2006 [mika]
 ################################################################################
-
-# exit on any error
-set -e
 
 CONFIG_FILE=/etc/grml/routersetup
 . /etc/grml/lsb-functions

@@ -4,7 +4,6 @@
 # Authors:       (c) Klaus Knopper Mar 2004, (c) Michael Prokop <mika@grml.org>
 # Bug-Reports:   see http://grml.org/bugs/
 # License:       This file is licensed under the GPL v2.
-# Latest change: Fre Apr 20 00:36:37 CEST 2007 [mika]
 ################################################################################
 
 PATH="/bin:/sbin:/usr/bin:/usr/sbin:/usr/X11R6/bin:/usr/local/bin"

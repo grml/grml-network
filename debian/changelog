@@ -3,8 +3,9 @@ grml-network (0.3.1) unstable; urgency=low
   * New script grml-sniff for configuring a network sniffing setup.
   * Fix typos in grml-bridge.
   * Drop 'Latest change' headers from all files.
+  * Bump to Standard Version 3.8.3 (no further changes).
 
- -- Michael Prokop <mika@grml.org>  Mon, 17 Aug 2009 11:23:58 +0200
+ -- Michael Prokop <mika@grml.org>  Mon, 17 Aug 2009 11:26:28 +0200
 
 grml-network (0.2.9) unstable; urgency=low
 

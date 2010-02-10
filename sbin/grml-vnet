@@ -93,6 +93,12 @@ while getopts "du:g:b:ah" opt; do
 done
 shift $(($OPTIND - 1))
 
+if [[ $# < 1 ]]; then
+    echo "Error: Please give at least one device" >&2
+    printUsage
+    exit 1
+fi
+
 if [[ $OPT_DEL_ == 'false' ]]; then
     if [[ $OPT_BRIDGE_ != '' && $OPT_AUTO_ == 'true' ]]; then
         brctl showmacs "$OPT_BRIDGE_" &>/dev/null || brctl addbr "$OPT_BRIDGE_"

@@ -125,10 +125,10 @@ if [ -z "$VPNUSERNAME" ] || [ -z "$VPNPASSWORD" ] ; then
   exit $1
   }
 
-  NETDEVICES="$(cat /proc/net/dev | awk -F: '/[0-9]:/{print $1}')"
+  NETDEVICES="$(grep -ve 'lo:' -ve 'Inter-|' -ve 'face |bytes' /proc/net/dev | awk -F: '{print $1}')"
 
   wireless(){
-   case "$(cat /proc/net/wireless 2>/dev/null)" in *$1*) return 0;; esac
+   [ -d "/sys/class/net/${1}/wireless" ] && return 0
    # Card exists but is not configured yet
    [ -n "$(iwconfig $1 2>/dev/null | head -1)" ] && return 0
    return 1

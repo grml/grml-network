@@ -5,8 +5,9 @@ grml-network (0.3.2) unstable; urgency=low
     /proc/net/wireless with kernel 2.6.33 for example).
   * Bump Standards-Version to 3.8.4 (no further changes).
   * Fix wrong usage of redirection in Makefile for doc generation.
+  * Use bash in shebang line of grml-vpnc-tugraz.
 
- -- Michael Prokop <mika@grml.org>  Fri, 02 Apr 2010 18:24:55 +0200
+ -- Michael Prokop <mika@grml.org>  Fri, 02 Apr 2010 18:27:26 +0200
 
 grml-network (0.3.1) unstable; urgency=low
 

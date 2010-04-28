@@ -1,3 +1,11 @@
+grml-network (0.3.3) unstable; urgency=low
+
+  * Add iptables to Recommends.
+  * Fix bashism/non-POSIX usage of $UID.
+    [Closes: issue843] Thanks to Darshaka Pathirana.
+
+ -- Michael Prokop <mika@grml.org>  Thu, 29 Apr 2010 00:42:05 +0200
+
 grml-network (0.3.2) unstable; urgency=low
 
   * Update device detection in grml-pptp-xdsl-students and

@@ -11,7 +11,7 @@ Vcs-Browser: http://git.grml.org/?p=grml-network.git
 Package: grml-network
 Architecture: all
 Depends: ${shlibs:Depends}, ${misc:Depends}, zsh, psmisc, dialog, grml-etc-core
-Recommends: bridge-utils, nmap, pppoeconf, pptp-linux, resolvconf, uml-utilities, vpnc, wireless-tools, wpasupplicant, wvdial
+Recommends: bridge-utils, iptables, nmap, pppoeconf, pptp-linux, resolvconf, uml-utilities, vpnc, wireless-tools, wpasupplicant, wvdial
 Suggests: isdnutils-base
 Conflicts: grml-scripts (<< 0.8-26)
 Description: network related helper scripts

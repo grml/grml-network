@@ -17,7 +17,7 @@
 export LANG=C
 DIALOG="dialog"
 
-if [ "$UID" != 0 ];  then
+if [ $(id -ru) -ne 0 ] ; then
   sudo $0
   exit
 fi
@@ -64,7 +64,7 @@ EOF
 echo "${VPNUSERNAME} XDSL ${VPNPASSWORD} *" >> /etc/ppp/pap-secrets
 chmod 0600 /etc/ppp/pap-secrets
 
-echo -e "#!/bin/sh\nLANG=C\nVPNSERVER=\"${VPNSERVER}\"\n" > /etc/init.d/pptp
+printf "#!/bin/sh\nLANG=C\nVPNSERVER=\"${VPNSERVER}\"\n" > /etc/init.d/pptp
 
 cat >> /etc/init.d/pptp << "EOF"
 

@@ -15,7 +15,7 @@ LANGUAGE=C LANG=C
 export PATH LANGUAGE LANG
 
 . /etc/grml/script-functions
-check4root
+check4root || exit 1
 
 TMP=$(mktemp)
 

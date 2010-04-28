@@ -12,7 +12,7 @@
 export LANG=C
 export LC_ALL=C
 
-if [ "$UID" != 0 ];  then
+if [ $(id -ru) -ne 0 ] ; then
   sudo $0
   exit
 fi

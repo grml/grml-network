@@ -16,6 +16,9 @@ OPT_GROUP_=''
 OPT_BRIDGE_=''
 OPT_AUTO_='false'
 
+if [ $(id -ru) -ne 0 ] ; then
+  echo 1>&2 "Error: please run this script with uid 0 (root)." ; exit 1
+fi
 
 function printUsage()
 {

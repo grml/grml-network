@@ -15,7 +15,7 @@
 export LANG=C
 export LC_ALL=C
 
-if [ "$UID" != 0 ];  then
+if [ $(id -ru) -ne 0 ] ; then
   sudo $0
   exit
 fi
@@ -51,7 +51,7 @@ chmod 600 /etc/ppp/chap-secrets
 # don't overwrite existing files - so just append:
 echo "${VPNUSERNAME} PPTP ${VPNPASSWORD} *" >> /etc/ppp/chap-secrets
 
-echo -e "#!/bin/sh\nLANG=C\nVPNSERVER=\"${VPNSERVER}\"\nDORMITORY=\"${DORMITORY}\"" > /etc/init.d/pptp-vcgraz
+printf "#!/bin/sh\nLANG=C\nVPNSERVER=\"${VPNSERVER}\"\nDORMITORY=\"${DORMITORY}\"" > /etc/init.d/pptp-vcgraz
 cat >> /etc/init.d/pptp-vcgraz << "EOF"
 # connect to vc-graz via pptp
 case "$1" in

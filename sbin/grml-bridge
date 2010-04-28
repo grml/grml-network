@@ -10,7 +10,7 @@ CONFIG_FILE=/etc/grml/routersetup
 . /etc/grml/lsb-functions
 . /etc/grml/script-functions
 
-check4root
+check4root || exit 1
 
 if ! [ -r "$CONFIG_FILE" ] ; then
   eerror "$CONFIG_FILE could not be read."

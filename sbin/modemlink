@@ -12,9 +12,8 @@ export PATH
 # XDIALOG_HIGH_DIALOG_COMPAT=1
 # export XDIALOG_HIGH_DIALOG_COMPAT
 
-if [ $UID != 0 ] ; then
-   echo Error: become root before starting $0 >& 2
-   exit 100
+if [ "$(id -u 2>/dev/null)" != 0 ] ; then
+  echo 1>&2 "Error: please run this script with uid 0 (root)." ; exit 1
 fi
 
 TMP=$(mktemp)

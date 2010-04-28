@@ -11,10 +11,7 @@ CONFIG_FILE=/etc/grml/routersetup
 . /etc/grml/net-functions
 . /etc/grml/script-functions
 
-if [ $UID != 0 ]; then
-   eerror "Error: become root before starting $0"
-   exit 100
-fi
+check4root || exit 1
 
 if ! [ -r $CONFIG_FILE ] ; then
   eerror "$CONFIG_FILE could not be read."

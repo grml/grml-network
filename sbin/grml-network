@@ -9,9 +9,8 @@
 PATH="/bin:/sbin:/usr/bin:/usr/sbin:/usr/X11R6/bin:/usr/local/bin"
 export PATH
 
-if [ $UID != 0 ] ; then
-   echo Error: become root before starting $0 >& 2
-   exit 100
+if [ $(id -ru) -ne 0 ] ; then
+  echo 1>&2 "Error: please run this script with uid 0 (root)." ; exit 1
 fi
 
 # XDIALOG_HIGH_DIALOG_COMPAT=1

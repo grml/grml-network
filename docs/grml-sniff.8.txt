@@ -117,7 +117,7 @@ Capturing traffic
 
 Execute:
 
-  tcpdump -s -C 50 -vvvv -w pcap -i br0
+  tcpdump -s0 -C 50 -v -w pcap -i br0
 
 to generate files named pcap, pcap1, pcap2,... each with a file size of ~50MB.
 Press CTRL-C to stop capturing traffic. You can analyse the generated pcap files

@@ -1,3 +1,11 @@
+grml-network (0.3.5) unstable; urgency=low
+
+  * [2ca346d] docs/grml-sniff.8.txt: update tcpdump commandline. -
+    thanks to Ralf Moll
+  * [65dcf3b] Bump Standards-Version to 3.9.0.
+
+ -- Michael Prokop <mika@grml.org>  Mon, 12 Jul 2010 11:34:02 +0200
+
 grml-network (0.3.4) unstable; urgency=low
 
   * Do not allow empty WPA passphrase. [Closes: issue846]

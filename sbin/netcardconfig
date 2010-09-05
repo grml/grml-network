@@ -327,6 +327,7 @@ configiface() {
                   ' /etc/network/interfaces)
           while [ -z "$WPASECRET" ] ; do
             $DIALOG --inputbox "$MESSAGEW23 $ESSID" 15 50 "$WPASECRET" 2>"$TMP" || bailout 1
+            read WPASECRET <"$TMP"
             if [ -z "$WPASECRET" ] ; then
               $DIALOG --msgbox "Sorry, empty password not allowed, please retry." 0 0 || bailout 1
             fi

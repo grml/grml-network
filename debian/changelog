@@ -1,3 +1,13 @@
+grml-network (0.3.6) unstable; urgency=low
+
+  [ Ulrich Dangel ]
+  * [9ccc6a2] Read WPASECRET from file. [Closes: issue900]
+
+  [ Michael Prokop ]
+  * [1dbcebb] Bump Standards-Version to 3.9.1.
+
+ -- Michael Prokop <mika@grml.org>  Fri, 17 Sep 2010 00:26:35 +0200
+
 grml-network (0.3.5) unstable; urgency=low
 
   * [2ca346d] docs/grml-sniff.8.txt: update tcpdump commandline. -

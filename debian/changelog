@@ -1,3 +1,17 @@
+grml-network (0.4.0) unstable; urgency=low
+
+  [ Michael Gebetsroither ]
+  * [74f6b32] grml-vnet: remove useless root check
+
+  [ Christian Hofstaedtler ]
+  * [b11f6b3] add debnet [Closes: issue374]
+
+  [ Michael Prokop ]
+  * [22c73e4] debnet: adjust code indenting and error message
+  * [8cd1f63] Add manpage for debnet.
+
+ -- Michael Prokop <mika@grml.org>  Tue, 07 Dec 2010 12:15:50 +0100
+
 grml-network (0.3.6) unstable; urgency=low
 
   [ Ulrich Dangel ]

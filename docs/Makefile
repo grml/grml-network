@@ -23,7 +23,7 @@ man1 = $(usr)/share/man/man1/
 	gzip -f --best `echo $^ |sed -e 's/.txt//'`
 
 
-MANPAGES = grml-sniff.8 grml-vnet.8
+MANPAGES = grml-sniff.8 grml-vnet.8 debnet.8
 
 all: doc
 

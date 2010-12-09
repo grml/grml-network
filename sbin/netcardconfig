@@ -156,6 +156,8 @@ configiface() {
   DEVICE=${NETDEVICES[$DV]}
   device2props
   DV=$DEVICENAME
+  ifdown $DV
+  sleep 3
   # wireless config
   WLDEVICE="$(LANG=C LC_MESSAGEWS=C iwconfig $DV 2>/dev/null | awk '/802\.11|READY|ESSID/{print $1}')"
   WLDEVICECOUNT="$(LANG=C LC_MESSAGEWS=C iwconfig $DV 2>/dev/null | wc -l)"
@@ -578,8 +580,6 @@ while (true); do
   IFACEDONE=""
   while [ -n "$DV" -a -z "$IFACEDONE" ]; do
     configiface
-    ifdown $DV
-    sleep 3
     if ! ifup $DV; then
       $DIALOG --yesno "$MESSAGE14" 15 50 || IFACEDONE="DONE"
     else

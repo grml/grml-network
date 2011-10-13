@@ -1,3 +1,17 @@
+grml-network (0.5.0) unstable; urgency=low
+
+  [ Michael Prokop ]
+  * [684696d] Bump Standards-Version to 3.9.2.
+
+  [ Christian Hofstaedtler ]
+  * [6491538] Add debian/control headers Origin, Bugs
+  * [31498de] Update Ulrich Dangel's email address
+  * [db4b339] Remove Austrian provider specific configs, modem support
+  * [aea36d9] Fix spelling errors (from lintian)
+  * [dff6482] Refresh Debian packaging
+
+ -- Christian Hofstaedtler <ch@grml.org>  Fri, 14 Oct 2011 00:11:06 +0200
+
 grml-network (0.4.1) unstable; urgency=low
 
   * [77958ef] Shutdown interfaces before reconfiguring them,

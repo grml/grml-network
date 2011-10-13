@@ -1,7 +1,7 @@
 #!/bin/sh
 # Filename:      grml-router
 # Purpose:       set up your box as NAT-router
-# Authors:       grml-team (grml.org), Ulrich Dangel <schula@grml.org>, Michael Prokop <mika@grml.org>
+# Authors:       grml-team (grml.org), Ulrich Dangel <mru@grml.org>, Michael Prokop <mika@grml.org>
 # Bug-Reports:   see http://grml.org/bugs/
 # License:       This file is licensed under the GPL v2.
 ################################################################################

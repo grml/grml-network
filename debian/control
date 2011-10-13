@@ -2,7 +2,7 @@ Source: grml-network
 Section: grml
 Priority: optional
 Maintainer: Michael Prokop <mika@grml.org>
-Build-Depends: debhelper (>= 5), xsltproc, docbook-xsl, asciidoc
+Build-Depends: debhelper (>= 8), xsltproc, docbook-xsl, asciidoc
 Standards-Version: 3.9.2
 Homepage: http://git.grml.org/?p=grml-network.git
 Vcs-git: git://git.grml.org/grml-network.git
@@ -15,7 +15,6 @@ Architecture: all
 Depends: ${shlibs:Depends}, ${misc:Depends}, zsh, psmisc, dialog, grml-etc-core
 Recommends: bridge-utils, iptables, nmap, pppoeconf, resolvconf, uml-utilities, vpnc, wireless-tools, wpasupplicant, wvdial
 Suggests: isdnutils-base
-Conflicts: grml-scripts (<< 0.8-26)
 Description: network related helper scripts
  This package provides scripts for network related
  tasks which should make life easier. Like:

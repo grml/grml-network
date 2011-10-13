@@ -81,7 +81,7 @@ are connected with the hub/switch/router and the client accordingly! The third
 interface (known as eth2 in this documentation) is just optional and not
 necessary for sniffing itself.
 
-Simple (but not necessarily 100% reliable) check for network connnection using a
+Simple (but not necessarily 100% reliable) check for network connection using a
 software command:
 
   ethtool eth0

@@ -7,10 +7,4 @@ Write manpages for:
    Synopsis: 'grml-network'. Set environment variable NOCHECK
    to skip network status check. Run 'grml-network check' to
    execute network status check and exit immediately afterwards.
-* grml-pptp-inode:  connect via PPTP at ISP Inode.
-* grml-pptp-vcgraz: connect via PPTP in Virtual Campus Graz.
-* grml-pptp-xdsl-students: connect via PPTP at ISP Inode (XDSL@students)
-* grml-vpnc-tugraz: connect to TU Graz network via vpnc
-* modemlink: start device drivers and set /dev/modem link in GRML
 * netcardconfig: a very light-weight text-based network configuration tool
-* scanmodem: http://linmodems.technion.ac.il/packages/scanModem.gz

@@ -49,36 +49,6 @@ killgauge(){
   touch "$TMP.done" ; wait ; rm -f "$TMP.done"
 }
 
-# Provider specific setup - menu
-provider () {
-  MENUINTERNET=$($DIALOG --stdout --clear --title "$PN" --menu \
-  "This script is a submenu of grml-network to set up an internet connection" 14 65 7 \
-  "TUG"      "Connect via vpnc to TU Graz" \
-  "VCGraz"   "Connect via pptp to VC-Graz" \
-  "Inode"    "Connect via pptp to Inode" \
-  "Students" "Connect via pptp to Inode-Students" \
-  "Exit" "Exit this program")
-
-  retval=$?
-  case $retval in
-      (0)
-        if [ $MENUINTERNET == TUG ] ; then
-                exec grml-vpnc-tugraz
-        fi
-        if [ $MENUINTERNET == VCGraz ] ; then
-                exec grml-pptp-vcgraz
-        fi
-        if [ $MENUINTERNET == Inode ] ; then
-                exec grml-pptp-inode
-        fi
-        if [ $MENUINTERNET == Students ] ; then
-                exec grml-pptp-xdsl-students
-        fi ;;
-      (1)   echo "Cancel pressed." ;;
-      (255) echo "ESC pressed."    ;;
-  esac
-}
-
 main(){
   if [ -z "$NOCHECK" -a -x /usr/bin/nmap ] ; then
   gauge "Checking network status..." &
@@ -109,46 +79,29 @@ case "$LANGUAGE" in
     TITLE1="Netzwerk-Setup"
     STATUS="Status: $STATUS"
     MESSAGE1="Bitte auswaehlen:"
-    MODEMSETUP="/dev/modem-Schnittstelle (neu) konfigurieren"
     NETCARD="Netzwerkkarten (LAN/WLAN) Konfiguration"
-    WIRELESS="Wireless Zugang"
-    GPRS="Einwahl per Handy/GPRS"
     DSL="Einwahl per DSL-Modem"
     ISDN="Einwahl per ISDN"
-    MODEM="Einwahl per Analogmodem"
-    PROVIDER="Provider spezifische Einstellungen"
     EXIT="Beenden"
     ;;
   *)
     TITLE1="Network Setup"
     STATUS="Current state: $STATUS"
     MESSAGE1="Please select:"
-    MODEMSETUP="(re)configure /dev/modem device"
     NETCARD="Configure network card (LAN/WLAN)"
-    WIRELESS="Wireless access"
-    GPRS="Dial via cellphone/GPRS"
     DSL="Dial via DSL-adapter"
     ISDN="Dial via ISDN"
-    MODEM="Dial via analog modem"
-    PROVIDER="Provider specific setup"
     EXIT="Quit"
    ;;
 esac
 
 # Shortcut description selected
 TYPES=(netcardconfig "$NETCARD" \
-provider "$PROVIDER" \
-modemlink "$MODEMSETUP" \
-gprsconnect "$GPRS" \
 pppoeconf "$DSL" \
-isdnconfig "$ISDN" \
-wvdial "$MODEM")
+isdnconfig "$ISDN")
 
-type wvdial      >/dev/null 2>&1 || { unset TYPES[13]; unset TYPES[12]; }
-type isdnconfig  >/dev/null 2>&1 || { unset TYPES[11]; unset TYPES[10];  }
-type pppoeconf   >/dev/null 2>&1 || { unset TYPES[9];  unset TYPES[8];  }
-type gprsconnect >/dev/null 2>&1 || { unset TYPES[7];  unset TYPES[6];  }
-type modemlink   >/dev/null 2>&1 || { unset TYPES[5];  unset TYPES[4];  }
+type pppoeconf   >/dev/null 2>&1 || { unset TYPES[2];  unset TYPES[3];  }
+type isdnconfig  >/dev/null 2>&1 || { unset TYPES[4];  unset TYPES[5];  }
 
 rm -f "$TMP"
 
@@ -159,10 +112,6 @@ $MESSAGE1" 18 75 10 "${TYPES[@]}" 2>"$TMP" || bailout 1
 read TYPE <"$TMP"
 TYPE="${TYPE#\"}"; TYPE="${TYPE%\"}"
 rm -f "$TMP"
-
-case "$TYPE" in
-  wvdial) [ -e /etc/wvdial.conf ] || wvdialconf /etc/wvdial.conf ;;
-esac
 
 eval $TYPE
 return "$?"

@@ -1,3 +1,10 @@
+grml-network (0.5.1) unstable; urgency=low
+
+  * [5a1079a] netcardconfig: fix variable assignment in awk cmdline.
+    Thanks to Marek Malevič. [Closes: issue1089]
+
+ -- Michael Prokop <mika@grml.org>  Thu, 08 Dec 2011 14:32:43 +0100
+
 grml-network (0.5.0) unstable; urgency=low
 
   [ Michael Prokop ]

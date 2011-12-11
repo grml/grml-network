@@ -81,32 +81,6 @@ writeiwline() {
   #echo "DEBUG: for interfaces $IWOURLINE"
 }
 
-generate_udev_entry() {
-  interface=''
-  mkdir -p /etc/udev/scripts
-  echo "# Auto generated script from netcardconfig on $(date)
-# Executing this script generates an entry in /etc/udev/rules.d/z25_persistent-net.rules
-# for you, please check z25_persistent-net.rules for existing entries before
-# running this script (once more)." > /etc/udev/scripts/netcardconfig
-  for interface in `ifconfig | awk '/^[a-z]/ &&!/^lo/{ print $1} '` ; do
-      echo -n "INTERFACE=$interface /lib/udev/write_net_rules " >> /etc/udev/scripts/netcardconfig && \
-      if which udevadm >/dev/null 2>&1; then
-        udevadm info -a -p /sys/class/net/$interface | awk -F'==' '/address/ {print $2}' >> /etc/udev/scripts/netcardconfig
-      else
-        udevinfo -a -p /sys/class/net/$interface | awk -F'==' '/address/ {print $2}' >> /etc/udev/scripts/netcardconfig
-      fi
-  done
-  # send errors to /dev/null as well because the sed line inside the /lib/udev/write_net_rules
-  # script outputs a sed warning which might unsettle users
-  chmod +x /etc/udev/scripts/netcardconfig && /etc/udev/scripts/netcardconfig 1>/dev/null 2>&1
-}
-
-disable_config_dhcp() {
-  if grep -q CONFIG_DHCP /etc/grml/autoconfig ; then
-     sed -i "s|^CONFIG_DHCP.*|CONFIG_DHCP='no'|" /etc/grml/autoconfig
-  fi
-}
-
 device2props() {
   PARTCOUNT=0
   isauto=0
@@ -265,9 +239,6 @@ configiface() {
     IWDRIVER=$driver
 
     case $IWDRIVER in
-      ath_pci)
-        WPA_DEV="madwifi"
-        ;;
       ipw2200|ipw2100|ipw3945)
         WPA_DEV="wext"
         ;;
@@ -585,10 +556,6 @@ while (true); do
     else
       if $DIALOG --yesno "$MESSAGE15" 12 50 ; then
          addauto
-         # get persistent interface names across reboots
-         generate_udev_entry
-	 # make sure we don't run the dhcp stuff when using /etc/network/interfaces
-	 disable_config_dhcp
       else
          remauto
       fi

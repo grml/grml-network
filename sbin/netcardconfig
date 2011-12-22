@@ -498,11 +498,15 @@ fi
 if [ -z "$WLAN" ] ; then
   WLAN_OLD=$(tail -n +3 /proc/net/wireless 2>/dev/null|awk -F: '{print $1}')
   # /proc/net/wireless does not work e.g. with iwl3945 on kernel 2.6.33 anymore
-  WLAN_NEW=$(for i in /sys/class/net/* ; do [ -d $i/wireless ] && basename $i ; done)
-  WLAN=$(echo $WLAN_OLD $WLAN_NEW | sort -u)
+  WLAN_NEW=$(for i in /sys/class/net/* ; do ( [ -d $i/wireless ] || [ -d $i/phy80211 ] ) && basename $i ; done)
+  set -a WLAN_IWCONFIG=""
+  for DEV in $LAN ; do
+      iwconfig $DEV 2>/dev/null 1>&2 && WLAN_IWCONFIG+="$DEV"
+  done
+  WLAN=$(echo $WLAN_OLD $WLAN_NEW ${WLAN_IWCONFIG[*]} | sort -u)
 fi
 
-unset LAN_DEVICES WLAN_DEVICES FIREWIRE_DEVICES NETDEVICES
+unset LAN_DEVICES WLAN_DEVICES FIREWIRE_DEVICES NETDEVICES WLAN_IWCONFIG
 
 while read dev mac; do
 #echo "Making NETDEVICES $NETDEVICESCOUNT $dev"

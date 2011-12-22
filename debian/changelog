@@ -1,3 +1,10 @@
+grml-network (0.5.3) unstable; urgency=low
+
+  [ Ulrich Dangel ]
+  * [64865aa] Fix array usage
+
+ -- Michael Prokop <mika@grml.org>  Thu, 22 Dec 2011 22:25:52 +0100
+
 grml-network (0.5.2) unstable; urgency=low
 
   * [a3e63c3] netcardconfig: fix WLAN card detection. Thanks to Ulrich

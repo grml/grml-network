@@ -36,7 +36,6 @@ if ! mount | grep '/mnt ' >/dev/null 2>&1 ; then
 
   if [ -n "$FOUND_DEBNET" ]; then
     einfo "Stopping network."
-      pump -k >/dev/null 2>&1
       /etc/init.d/networking stop >/dev/null 2>&1 ; eend $?
     einfo "Copying Debian network configuration from $FOUND_DEBNET to running system."
       rm -rf /etc/network/run

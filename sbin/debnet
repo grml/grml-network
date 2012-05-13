@@ -16,7 +16,7 @@ if [ "$1" = "-h" -o "$1" = "--help" ] ; then
    exit 0
 fi
 
-DEVICES="$(< /proc/partitions tail -n +3 | awk '{print "/dev/"$4}' | tr "\n" " ")"
+DEVICES="$(< /proc/partitions tail -n +3 | awk '($4 !~ /loop[0-9]+/) {print "/dev/"$4}' | tr "\n" " ")"
 DEVICES="$DEVICES $(ls /dev/mapper/*)"
 FOUND_DEBNET=""
 

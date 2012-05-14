@@ -1,3 +1,13 @@
+grml-network (0.5.4) unstable; urgency=low
+
+  * [80d07bb] debnet: Ignore loop devices
+    Thanks to John S. Skogtvedt <jss@bzz.no> for bugreport and patch
+  * [50d6778] debnet: drop pump command line (as pump isn't shipped any
+    longer) Thanks to John S. Skogtvedt <jss@bzz.no> for bugreport and
+    patch (Closes: issue1166)
+
+ -- Michael Prokop <mika@grml.org>  Mon, 14 May 2012 15:35:34 +0200
+
 grml-network (0.5.3) unstable; urgency=low
 
   [ Ulrich Dangel ]

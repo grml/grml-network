@@ -335,8 +335,7 @@ configiface() {
             fi
           done
 
-          # make sure backslashes inside passphrase are handled correct
-          WPASECRET=$(sed -e 's/\\/\\/g' "$TMP") && rm -r "$TMP"
+          rm -f "$TMP"
 
           case $WPA_DEV in
                hostap)

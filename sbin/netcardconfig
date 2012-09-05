@@ -327,12 +327,14 @@ configiface() {
                           }
                   }
                   ' /etc/network/interfaces)
-          while [ -z "$WPASECRET" ] ; do
+          FIRST_RUN=0  # show the wpasecret input box at least once
+          while ( [ -z "$WPASECRET" ] || [ "$FIRST_RUN" ] ) ; do
             $DIALOG --inputbox "$MESSAGEW23 $ESSID" 15 50 "$WPASECRET" 2>"$TMP" || bailout 1
             read WPASECRET <"$TMP"
             if [ -z "$WPASECRET" ] ; then
               $DIALOG --msgbox "Sorry, empty password not allowed, please retry." 0 0 || bailout 1
             fi
+            FIRST_RUN=""
           done
 
           rm -f "$TMP"

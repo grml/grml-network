@@ -1,3 +1,12 @@
+grml-network (0.5.5) unstable; urgency=low
+
+  [ Lukas Prokop ]
+  * [37ce7c8] netcardconfig: sed command resets WPASECRET
+  * [63dae7f] netcardconfig: show the wpasecret input box, even if
+    password is already set
+
+ -- Michael Prokop <mika@grml.org>  Wed, 05 Sep 2012 16:34:49 +0200
+
 grml-network (0.5.4) unstable; urgency=low
 
   * [80d07bb] debnet: Ignore loop devices

@@ -151,6 +151,21 @@ remauto(){
   fi
 }
 
+scanwlan(){
+  i=0
+  ifconfig $DV up
+  iwlist $DV scanning | grep "ESSID\|Quality" | sed -e "s/^.*ESSID:\"\|\"$//g" | tac > "$TMP"
+  while read line
+  do
+    # don't show up empty and hidden (containing "\x00") ESSIDs
+    echo $line | grep -q \\x00 && continue
+    [ -z "$line" ] && continue
+    WARRAY[i++]=$line
+  done < "$TMP"
+  unset i
+  rm -f "$TMP"
+}
+
 configiface() {
   [ ! -r /etc/network/interfaces ] && touch /etc/network/interfaces
   DEVICE=${NETDEVICES[$DV]}
@@ -242,23 +257,50 @@ configiface() {
       rm -f "$TMP"
     fi
 
-    $DIALOG --inputbox "$MESSAGEW4 $DEVICENAME $MESSAGEW5" 15 50 "$ESSID" 2>"$TMP" || bailout 1
-    read ESSID <"$TMP" ; rm -f "$TMP"
-    [ -z "$ESSID" ] && ESSID="any"
+    # ask to scan or manually set wireless network
+    if $DIALOG --yesno "$MESSAGEWSCAN1" 8 45 ; then
+      RESCAN=1
 
-    $DIALOG --inputbox "$MESSAGEW6 $DEVICENAME $MESSAGEW7" 15 50 "$NWID" 2>"$TMP" || bailout 1
-    read NWID <"$TMP" ; rm -f "$TMP"
+      while [ $RESCAN -eq 1 ]
+      do
+        scanwlan
+        $DIALOG --extra-button --extra-label "Rescan" --menu "$MESSAGEWSCAN2" 20 70 15 "${WARRAY[@] }" 2>"$TMP"
+        case $? in
+          0)
+            RESCAN=0
+            ;;
+          3)
+            ;;
+          *)
+            bailout 1
+            ;;
+        esac
+      done
 
-    $DIALOG --inputbox "$MESSAGEW8 $DEVICENAME $MESSAGEW9" 15 50 "$MODE" 2>"$TMP" || bailout 1
-    read MODE <"$TMP" ; rm -f "$TMP"
-    [ -z "$MODE" ] && MODE="Managed"
+      read ESSID <"$TMP" ; rm -f "$TMP"
+      [ -z "$MODE" ] && MODE="Managed"
 
-    $DIALOG --inputbox "$MESSAGEW10 $DEVICENAME $MESSAGEW11" 15 50 "$CHANNEL" 2>"$TMP" || bailout 1
-    read CHANNEL <"$TMP" ; rm -f "$TMP"
+    else
 
-    if [ -z "$CHANNEL" ]; then
-      $DIALOG --inputbox "$MESSAGEW12 $DEVICENAME $MESSAGEW13" 15 50 "$FREQ" 2>"$TMP" || bailout 1
-      read FREQ <"$TMP" ; rm -f "$TMP"
+      $DIALOG --inputbox "$MESSAGEW4 $DEVICENAME $MESSAGEW5" 15 50 "$ESSID" 2>"$TMP" || bailout 1
+      read ESSID <"$TMP" ; rm -f "$TMP"
+      [ -z "$ESSID" ] && ESSID="any"
+
+      $DIALOG --inputbox "$MESSAGEW6 $DEVICENAME $MESSAGEW7" 15 50 "$NWID" 2>"$TMP" || bailout 1
+      read NWID <"$TMP" ; rm -f "$TMP"
+
+      $DIALOG --inputbox "$MESSAGEW8 $DEVICENAME $MESSAGEW9" 15 50 "$MODE" 2>"$TMP" || bailout 1
+      read MODE <"$TMP" ; rm -f "$TMP"
+      [ -z "$MODE" ] && MODE="Managed"
+
+      $DIALOG --inputbox "$MESSAGEW10 $DEVICENAME $MESSAGEW11" 15 50 "$CHANNEL" 2>"$TMP" || bailout 1
+      read CHANNEL <"$TMP" ; rm -f "$TMP"
+
+      if [ -z "$CHANNEL" ]; then
+        $DIALOG --inputbox "$MESSAGEW12 $DEVICENAME $MESSAGEW13" 15 50 "$FREQ" 2>"$TMP" || bailout 1
+        read FREQ <"$TMP" ; rm -f "$TMP"
+      fi
+
     fi
 
     WPAON=0
@@ -487,7 +529,8 @@ MESSAGEW22="Enable WPA support?"
 MESSAGEW23="Enter the WPA passphrase (passphrase must be 8..63 characters) for"
 MESSAGEW25="Would you like to store your wep key in it's own private file ("
 MESSAGEW26=")?   If you say no, your wep key will be stored in /etc/network/interfaces and will be readable by any account on your system.  You may want to 'chmod 600 /etc/network/interfaces' if you answer no to this question"
-
+MESSAGEWSCAN1="Scan for available wireless networks?"
+MESSAGEWSCAN2="Please choose a wireless network from below:"
 
 NETDEVICESCOUNT=0
 if [ -r /proc/net/dev ] ; then

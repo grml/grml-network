@@ -1,3 +1,11 @@
+grml-network (0.6.0) unstable; urgency=low
+
+  [ frenbu ]
+  * [55ff86e] Update sbin/netcardconfig: Added feature to scan
+    for available wireless networks dialog
+
+ -- Michael Prokop <mika@grml.org>  Mon, 04 Feb 2013 13:34:09 +0100
+
 grml-network (0.5.5) unstable; urgency=low
 
   [ Lukas Prokop ]

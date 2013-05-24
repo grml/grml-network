@@ -1,3 +1,15 @@
+grml-network (0.7.0) unstable; urgency=low
+
+  * [4dd28e7] grml-sniff: make sure network devices configured as
+    BRIDGE_DEVICES exist
+  * [af7e792] Disable default configuration in routersetup config file,
+    use defaults in main scripts
+  * [0c5295b] grml-sniff: disable IPv6 to avoid neighbor
+    solicitation/multicast traffic
+  * [d492168] Bump Standards-Version to 3.9.4
+
+ -- Michael Prokop <mika@grml.org>  Fri, 24 May 2013 16:34:47 +0200
+
 grml-network (0.6.0) unstable; urgency=low
 
   [ frenbu ]

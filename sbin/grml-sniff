@@ -32,6 +32,17 @@ fi
 [ -n "$BRIDGE_NAME" ]    || BRIDGE_NAME='br0'
 [ -n "$BRIDGE_DEVICES" ] || BRIDGE_DEVICES='eth0 eth1'
 
+check_devs() {
+  for dev in $BRIDGE_DEVICES ; do
+    ip link show dev "$dev" >/dev/null 2>&1 || return 1
+ done
+}
+
+if ! check_devs ; then
+  eerror "BRIDGE_DEVICES $BRIDGE_DEVICES do not seem to exist." >&2
+  exit 1
+fi
+
 check4progs $BRCTL || exit 1
 
 case "$1" in

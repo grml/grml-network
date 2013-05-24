@@ -45,6 +45,10 @@ case "$1" in
         check4root || exit 1
         einfo "Starting sniffing setup"
         eindent
+
+            einfo "Disabling IPv6 to avoid neighbor solicitation/multicast traffic"
+            echo 1 > /proc/sys/net/ipv6/conf/all/disable_ipv6
+
             einfo "Creating bridge device"
             brctl addbr "$BRIDGE_NAME"
             eend $?
@@ -98,6 +102,9 @@ case "$1" in
             ifconfig "$BRIDGE_NAME" down || /bin/true
             brctl delbr "$BRIDGE_NAME"
             eend $?
+
+            einfo "Re-enabling IPv6"
+            echo 0 > /proc/sys/net/ipv6/conf/all/disable_ipv6
         eoutdent
    ;;
 

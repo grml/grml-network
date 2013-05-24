@@ -16,13 +16,13 @@ CONFIG_FILE=/etc/grml/routersetup
 
 check4root || exit 1
 
-if ! [ -r "$CONFIG_FILE" ] ; then
-        eerror "$CONFIG_FILE could not be read."
-        exit 1
+if [ -r "$CONFIG_FILE" ] ; then
+  . "$CONFIG_FILE"
+else
+  ewarn "Could not read $CONFIG_FILE"
 fi
 
-. "$CONFIG_FILE"
-
+# defaults if unconfigured
 [ -n "$AP_ESSID" ] || AP_ESSID=grml-ap
 [ -n "$AP_ENC" ]   || AP_ENC=off
 

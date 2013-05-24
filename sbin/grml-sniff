@@ -16,18 +16,13 @@ usage_info()
    einfo "Configure via $CONFIG_FILE - see man 8 grml-sniff" ; eend 0
 }
 
-if ! [ -r "$CONFIG_FILE" ] ; then
-  eerror "$CONFIG_FILE could not be read."
-  exit 1
+if [ -r "$CONFIG_FILE" ] ; then
+  . "$CONFIG_FILE"
+else
+  ewarn "Could not read $CONFIG_FILE"
 fi
 
-. "$CONFIG_FILE"
-
-if [ -z "$BRIDGE_DEVICES" ] ; then
-   eerror "Bridge devices (\$BRIDGE_DEVICES) not set in $CONFIG_FILE"
-   exit 1
-fi
-
+# defaults if unconfigured
 [ -n "$BRCTL" ]          || BRCTL='brctl'
 [ -n "$BRIDGE_NAME" ]    || BRIDGE_NAME='br0'
 [ -n "$BRIDGE_DEVICES" ] || BRIDGE_DEVICES='eth0 eth1'

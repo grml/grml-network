@@ -12,9 +12,10 @@ command.
 Configure setup via configuration file /etc/grml/routersetup.
 To specify which DEVICES should be bridged, use BRIDGE_DEVICES, e.g.
 
-  BRIDGE_DEVICES="eth0 eth1"
+  BRIDGE_DEVICES="eth0 eth2"
 
-would bridge device eth0 and eth1. 
+would bridge device eth0 and eth2.
+If unconfigured then 'eth0 eth1' is assumed as default.
 Note: The auto interface name is not allowed here!
 
 To specify the name of the bridge, use BRIDGE_NAME, e.g.
@@ -27,7 +28,7 @@ If you want do disable Spanning Tree Protocol (STP) on your bridge, just set BRI
 
   BRIDGE_STP="no"
 
-Per default stp is on.
+Per default STP is set to 'on'.
 
 Example Configuration file:
 

@@ -13,31 +13,26 @@ CONFIG_FILE=/etc/grml/routersetup
 
 check4root || exit 1
 
-if ! [ -r $CONFIG_FILE ] ; then
-  eerror "$CONFIG_FILE could not be read."
-  exit 1
+if [ -r "$CONFIG_FILE" ] ; then
+  . "$CONFIG_FILE"
+else
+  ewarn "Could not read $CONFIG_FILE"
 fi
 
-. $CONFIG_FILE
-
-if [ -z "$OUTDEV" ] ; then
-    eewarn "Outgoing device is not set in $CONFIG_FILE"
-    eewarn "Setting Outgoing device to auto"
-    OUTDEV=auto
-fi
+# defaults if unconfigured
+[ -n "$OUTDEV" ]   || OUTDEV=auto
+[ -n "$IPTABLES" ] || IPTABLES=/sbin/iptables
 
 case "$OUTDEV" in
-    auto|default)
+  auto|default)
     OUTDEV=$(defaultGWDev)
     if [ -z "$OUTDEV" ] ; then
-	    eerror "The outgoing device could not be determined."
-	    eerror "Please adjust OUTDEV in $CONFIG_FILE"
-	    exit 1
+      eerror "The outgoing device could not be determined."
+      eerror "Please adjust OUTDEV in $CONFIG_FILE or set OUTDEV as environment variable"
+      exit 1
     fi
     ;;
 esac
-
-[ -n "$IPTABLES" ] || IPTABLES=/sbin/iptables
 
 check4progs $IPTABLES || exit 1
 

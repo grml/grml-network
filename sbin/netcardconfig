@@ -442,7 +442,7 @@ configiface() {
         /gateway/{if(found){gateway=$NF}}
         /dns-nameservers/{if(found){dnsnameservers=$NF}}
         END{print address" "netmask" "broadcast" "gateway" "dnsnameservers}' /etc/network/interfaces >"$TMP"
-      read IP NM BC DG <"$TMP"
+      read IP NM BC DG NS <"$TMP"
       rm -f "$TMP"
     fi
 

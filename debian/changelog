@@ -1,3 +1,9 @@
+grml-network (0.8.1) unstable; urgency=medium
+
+  * [f2a7156] grml-network: fix nmap usage for recent nmap versions
+
+ -- Michael Prokop <mika@grml.org>  Thu, 08 May 2014 11:44:22 +0200
+
 grml-network (0.8.0) unstable; urgency=medium
 
   * [606f7cc] netcardconfig: avoid dns-nameservers leaking into gateway

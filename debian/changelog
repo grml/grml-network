@@ -1,3 +1,10 @@
+grml-network (0.8.2) unstable; urgency=medium
+
+  * [e982bd7] grml-network: nmap reports "0 hosts up" instead of "down"
+    nowadays
+
+ -- Michael Prokop <mika@grml.org>  Thu, 08 May 2014 14:25:42 +0200
+
 grml-network (0.8.1) unstable; urgency=medium
 
   * [f2a7156] grml-network: fix nmap usage for recent nmap versions

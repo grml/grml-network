@@ -53,12 +53,14 @@ main(){
   if [ -z "$NOCHECK" -a -x /usr/bin/nmap ] ; then
   gauge "Checking network status..." &
     STATUS=""
-    GW="`echo $(route -n | awk '/^0\.0\.0\.0/{print $2}')`"
-    GWDEV="`echo $(route -n | awk '/^0\.0\.0\.0/{print $NF}')`"
+    GW="$(echo $(route -n | awk '/^0\.0\.0\.0/{print $2}'))"
+    GWDEV="$(echo $(route -n | awk '/^0\.0\.0\.0/{print $NF}'))"
     NMAP="$(nmap -sP --host_timeout 4000 --max_rtt_timeout 4000ms $GW 2>/dev/null)"
 
-    if [ "$?" = 0 ]; then
-      echo "$NMAP" | grep -q "down" >/dev/null 2>&1 || STATUS="online"
+    if [ $? -eq 0 ]; then
+      if ! echo "$NMAP" | grep -q '0 hosts up' ; then
+	STATUS="Online"
+      fi
     fi
 
     killgauge

@@ -21,7 +21,7 @@ fi
 
 # defaults if unconfigured
 [ -n "$OUTDEV" ]   || OUTDEV=auto
-[ -n "$IPTABLES" ] || IPTABLES=/sbin/iptables
+[ -n "$IPTABLES" ] || IPTABLES=iptables
 
 case "$OUTDEV" in
   auto|default)

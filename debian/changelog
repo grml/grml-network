@@ -1,3 +1,11 @@
+grml-network (0.8.3) unstable; urgency=medium
+
+  * [09a3d47] grml-router: fix usage of iptables by dropping full path
+    usage. Thanks to Ralf Moll for the bugreport
+  * [10c276c] Bump Standards-Version to 3.9.8
+
+ -- Michael Prokop <mika@grml.org>  Tue, 07 Jun 2016 16:27:16 +0200
+
 grml-network (0.8.2) unstable; urgency=medium
 
   * [e982bd7] grml-network: nmap reports "0 hosts up" instead of "down"

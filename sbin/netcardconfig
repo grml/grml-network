@@ -573,7 +573,7 @@ while read dev mac; do
   fi
 #echo "Made to ${NETDEVICES[$NETDEVICESCOUNT]}"
   ((NETDEVICESCOUNT++))
-done < <(ifconfig -a|grep Ethernet|grep -v ^vmnet|awk '! /^\s/{print $1" "$5}')
+done < <(ip link show | awk ' !/^\s/{sub(/:/,"",$2);IFACE=$2} /link.ether/{if (IFACE !~/^vmnet/) print IFACE" "$2}')
 for dev in $LAN; do
   if [ "$(ethtool -i $dev 2>/dev/null|awk '/^bus-info:/{print $2}')" == "ieee1394" ]; then
     isauto="0"

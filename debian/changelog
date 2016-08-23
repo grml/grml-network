@@ -1,3 +1,11 @@
+grml-network (0.8.4) unstable; urgency=medium
+
+  * [4fa68f7] netcardconfig: switch from `ifconfig` to `ip link` for
+    interface parsing [Closes: issue2219] Thanks to Jakob Haufe
+    <sur5r@sur5r.net> for the bugreport and patch
+
+ -- Michael Prokop <mika@grml.org>  Tue, 23 Aug 2016 14:21:19 +0200
+
 grml-network (0.8.3) unstable; urgency=medium
 
   * [09a3d47] grml-router: fix usage of iptables by dropping full path

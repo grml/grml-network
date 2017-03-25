@@ -157,9 +157,6 @@ scanwlan(){
   iwlist $DV scanning | grep "ESSID\|Quality" | sed -e "s/^.*ESSID:\"\|\"$//g" | tac > "$TMP"
   while read line
   do
-    # don't show up empty and hidden (containing "\x00") ESSIDs
-    echo $line | grep -q \\x00 && continue
-    [ -z "$line" ] && continue
     WARRAY[i++]=$line
   done < "$TMP"
   unset i
@@ -264,7 +261,7 @@ configiface() {
       while [ $RESCAN -eq 1 ]
       do
         scanwlan
-        $DIALOG --extra-button --extra-label "Rescan" --menu "$MESSAGEWSCAN2" 20 70 15 "${WARRAY[@] }" 2>"$TMP"
+        $DIALOG --extra-button --extra-label "Rescan" --menu "$MESSAGEWSCAN2" 20 70 15 "${WARRAY[@]}" 2>"$TMP"
         case $? in
           0)
             RESCAN=0

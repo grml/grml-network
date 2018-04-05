@@ -21,7 +21,7 @@ TMP=$(mktemp)
 
 bailout() {
   rm -f "$TMP"
-  exit "$1"
+  exit "${1:-0}"
 }
 
 # This function produces the IWOURLINE for interfaces

@@ -1,3 +1,24 @@
+grml-network (0.10.0) unstable; urgency=medium
+
+  [ Mykola Malkov ]
+  * [fdbb486] Refactoring netcardconfig according to 'shellcheck'
+    recommendations
+  * [c41a34b] Add support of VLAN configuration
+  * [956aca8] Refactoring netcardconfig according to 'shellcheck'
+    recommendations
+  * [7e77bd6] Fix default exit code of bailout
+
+  [ Michael Prokop ]
+  * [9792465] netcardconfig: switch from ifconfig to ip(8)
+  * [0129d40] netcardconfig: default VLAN option to no and ensure 8021q
+    module is loaded
+  * [fe68857] Bump Standards-Version to 4.1.4
+  * [1fa5d84] Depend on iproute2 for proper support within netcardconfig
+  * [794aa21] Drop empty debian/docs
+  * [7444b5e] debian: run wrap-and-sort with `-a -t -s`
+
+ -- Michael Prokop <mika@grml.org>  Fri, 25 May 2018 12:15:44 +0200
+
 grml-network (0.9.0) unstable; urgency=medium
 
   * [e441696] Switch Homepage + Vcs-Browser headers to https version

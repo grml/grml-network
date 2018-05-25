@@ -420,10 +420,11 @@ configiface() {
   fi
 
   # Configure VLAN on this interface?
-  if $DIALOG --yesno "$MESSAGE16" 8 45; then
+  if $DIALOG --defaultno --yesno "$MESSAGE16" 8 45; then
     $DIALOG --inputbox "$MESSAGE17 $DV" 10 45 2>"$TMP" || bailout 1
     read -r VLAN <"$TMP" ; rm -f "$TMP"
     if [ -n "$VLAN" ]; then
+      modprobe 8021q # avoid warning that VLAN support isn't present yet
       PDV=$DV
       DV="vlan$VLAN"
     fi

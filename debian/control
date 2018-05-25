@@ -17,6 +17,7 @@ Package: grml-network
 Architecture: all
 Depends: dialog,
          grml-etc-core,
+         iproute2,
          psmisc,
          zsh,
          ${misc:Depends},

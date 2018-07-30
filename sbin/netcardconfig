@@ -552,7 +552,7 @@ if [ -z "${WLAN[*]}" ] ; then
   WLAN_NEW=( $(for i in /sys/class/net/* ; do ( [ -d "$i/wireless" ] || [ -d "$i/phy80211" ] ) && basename "$i" ; done) )
   set -a WLAN_IWCONFIG
   for DEV in $LAN ; do
-    iwconfig $DEV 2>/dev/null 1>&2 && WLAN_IWCONFIG+=($DEV)
+    iwconfig "${DEV}" 2>/dev/null 1>&2 && WLAN_IWCONFIG+=("${DEV}")
   done
   WLAN=( $(echo "${WLAN_OLD[@]}" "${WLAN_NEW[@]}" "${WLAN_IWCONFIG[@]}" | tr ' ' '\n' | sort -u) )
 fi
@@ -582,10 +582,10 @@ while read -r dev mac; do
   ((NETDEVICESCOUNT++))
 done < <(ip link show | awk ' !/^\s/{sub(/:/,"",$2);IFACE=$2} /link.ether/{if (IFACE !~/^vmnet/) print IFACE" "$2}')
 for dev in $LAN; do
-  if [ "$(ethtool -i $dev 2>/dev/null|awk '/^bus-info:/{print $2}')" == "ieee1394" ]; then
+  if [ "$(ethtool -i "${dev}" 2>/dev/null|awk '/^bus-info:/{print $2}')" == "ieee1394" ]; then
     isauto="0"
-    grep auto /etc/network/interfaces | grep -q $dev && isauto="1"
-    NETDEVICES[$NETDEVICESCOUNT]="$dev A::$isauto D::$(ethtool -i $dev 2>/dev/null|awk '/^driver:/{print $2}') W::0 F::1"
+    grep auto /etc/network/interfaces | grep -q "${dev}" && isauto="1"
+    NETDEVICES[$NETDEVICESCOUNT]="${dev} A::${isauto} D::$(ethtool -i "${dev}" 2>/dev/null|awk '/^driver:/{print $2}') W::0 F::1"
     ((NETDEVICESCOUNT++))
   fi
 done

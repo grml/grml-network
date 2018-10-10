@@ -683,7 +683,20 @@ while (true); do
       $DIALOG --menu "$MESSAGE1" 18 60 12 "${DEVICELIST[@]}" "${EXITMENU[@]}" 2>"$TMP" || bailout
       read -r DV <"$TMP" ; rm -f "$TMP"
     else
-      DV="${NET_DEV}"
+      # we have interface name so we need to find its number in NETDEVICES
+      DV=0
+      found=false
+      for DV in "${!NETDEVICES[@]}"; do
+        if [[ "${NETDEVICES[$DV]}" =~ ^"${NET_DEV} " ]]; then
+          found=true
+          break
+        fi
+      done
+      if ! "${found}"; then
+        echo "There is no interface ${NET_DEV} in the system" >&2
+        bailout 1
+      fi
+
       [[ -z "${IFACEDONE}" ]] || bailout
     fi
     [ "$DV" = "$EXITKEY" ] && bailout

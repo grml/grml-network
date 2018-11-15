@@ -1,3 +1,14 @@
+grml-network (0.11.0) unstable; urgency=medium
+
+  [ Mykola Malkov ]
+  * [45b8379] Fix some shellcheck warnings
+  * [eebbac2] Add support for non-interactive mode
+
+  [ Michael Prokop ]
+  * [780af83] Bump Standards-Version to 4.2.1
+
+ -- Michael Prokop <mika@grml.org>  Thu, 15 Nov 2018 09:55:59 +0100
+
 grml-network (0.10.0) unstable; urgency=medium
 
   [ Mykola Malkov ]

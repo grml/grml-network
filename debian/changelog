@@ -1,3 +1,10 @@
+grml-network (0.11.1) unstable; urgency=medium
+
+  [ Mykola Malkov ]
+  * [a186676] Fix non-interactive interface choosing
+
+ -- Michael Prokop <mika@grml.org>  Fri, 14 Dec 2018 12:56:25 +0100
+
 grml-network (0.11.0) unstable; urgency=medium
 
   [ Mykola Malkov ]

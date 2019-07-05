@@ -1,3 +1,9 @@
+grml-network (0.11.2) unstable; urgency=medium
+
+  * [9c06fe3] grml-sniff: don't disable IPv6, raising unexpected behavior
+
+ -- Michael Prokop <mika@grml.org>  Fri, 05 Jul 2019 16:15:19 +0200
+
 grml-network (0.11.1) unstable; urgency=medium
 
   [ Mykola Malkov ]

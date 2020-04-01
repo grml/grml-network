@@ -55,7 +55,7 @@ main(){
     STATUS=""
     GW="$(echo $(route -n | awk '/^0\.0\.0\.0/{print $2}'))"
     GWDEV="$(echo $(route -n | awk '/^0\.0\.0\.0/{print $NF}'))"
-    NMAP="$(nmap -sP --host_timeout 4000 --max_rtt_timeout 4000ms $GW 2>/dev/null)"
+    NMAP="$(nmap -sP --host-timeout 4 --max-rtt-timeout 4 $GW 2>/dev/null)"
 
     if [ $? -eq 0 ]; then
       if ! echo "$NMAP" | grep -q '0 hosts up' ; then

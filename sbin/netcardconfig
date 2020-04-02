@@ -190,10 +190,11 @@ configiface() {
   DV=$DEVICENAME
   ifdown "${DV}" --force
   sleep 3
-  # wireless config
-  WLDEVICECOUNT="$(LANG=C LC_MESSAGEWS=C iwconfig "$DV" 2>/dev/null | wc -l)"
+  # INTERACTIVE=true
   if "${INTERACTIVE}" ; then
+    # Setup wireless options?
     if [ $iswireless -gt 0 ] && $DIALOG --yesno "$MESSAGE13" 8 45; then
+      WLDEVICECOUNT="$(LANG=C LC_MESSAGEWS=C iwconfig "$DV" 2>/dev/null | wc -l)"
       ESSID=""
       NWID=""
       MODE=""
@@ -433,7 +434,7 @@ configiface() {
       read -r IWPRIV <"$TMP" ; rm -f "$TMP"
 
       writeiwline
-    fi
+    fi # Setup wireless options?
 
     # Configure VLAN on this interface?
     if $DIALOG --defaultno --yesno "$MESSAGE16" 8 45; then
@@ -445,8 +446,9 @@ configiface() {
         DV="vlan$VLAN"
       fi
     fi
-  fi
+  fi # INTERACTIVE=true
 
+  # Use DHCP broadcast?
   if ("${INTERACTIVE}" && "${DIALOG}" --yesno "${MESSAGE2}" 8 45) || \
     (! "${INTERACTIVE}" && [[ "${METHOD}" == 'dhcp' ]]) ; then
     if [ -w /etc/network/interfaces ]; then
@@ -511,7 +513,7 @@ configiface() {
       #addauto
     fi
 
-  fi
+  fi # Use DHCP broadcast?
   echo "Done."
 }
 

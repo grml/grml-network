@@ -21,7 +21,7 @@ clean:
 	dh_testroot
 	( cd docs && $(MAKE) clean )
 	rm -f build-stamp
-	dh_clean 
+	dh_prep
 
 install: build
 	dh_testdir

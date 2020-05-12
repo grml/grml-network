@@ -4,7 +4,7 @@ Priority: optional
 Maintainer: Michael Prokop <mika@grml.org>
 Build-Depends:
  asciidoc,
- debhelper (>= 8),
+ debhelper-compat (= 12),
  docbook-xsl,
  xsltproc,
 Standards-Version: 4.5.0

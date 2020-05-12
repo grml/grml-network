@@ -1,3 +1,16 @@
+grml-network (0.11.3) unstable; urgency=medium
+
+  [ Darshaka Pathirana ]
+  * [870cd13] grml-network: Fix obsolete nmap command line options
+  * [1c62e0a] netcardconfig: Add comments to make code more readable
+
+  [ Michael Prokop ]
+  * [f3086b9] Bump Standards-Version to 4.5.0
+  * [fa37d04] Bump Debian compat version to 12, using debhelper-compat
+    approach
+
+ -- Michael Prokop <mika@grml.org>  Tue, 12 May 2020 16:40:52 +0200
+
 grml-network (0.11.2) unstable; urgency=medium
 
   * [9c06fe3] grml-sniff: don't disable IPv6, raising unexpected behavior

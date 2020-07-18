@@ -433,7 +433,11 @@ configiface() {
       $DIALOG --inputbox "$MESSAGEW20 $DEVICENAME $MESSAGEW21" 15 50 "$IWPRIV" 2>"$TMP" || bailout 1
       read -r IWPRIV <"$TMP" ; rm -f "$TMP"
 
-      writeiwline
+      unset IWOURLINE
+      if [ "$iswireless" = "1" ] ; then
+        writeiwline
+      fi
+
     fi # Setup wireless options?
 
     # Configure VLAN on this interface?
@@ -459,7 +463,14 @@ configiface() {
         {if(!(found+lastblank)){print}}
         END{print "iface '"$DV"' inet dhcp";if("'"$PDV"'"!=""){print "\tvlan-raw-device '"$PDV"'"}}' \
         /etc/network/interfaces >"$TMP"
-      echo -e "$IWOURLINE" >> "$TMP"
+      case "$DV" in
+        "$WLAN")
+          # write wireless configuration only when we are dealing with a wireless device,
+          # it might be set from a previous configuration run of a wireless device
+          # while the currently configured network device isn't a wireless device
+          echo -e "$IWOURLINE" >> "$TMP"
+          ;;
+      esac
       #echo -e "\n\n" >> $TMP
       cat "$TMP" >/etc/network/interfaces
       rm -f "$TMP"
@@ -501,6 +512,17 @@ configiface() {
     fi
 
     if [ -w /etc/network/interfaces ]; then
+      case "$DV" in
+        "$WLAN")
+          ;;
+        *)
+          # ensure we don't leak the IWOURLINE into the
+          # following awk command line, if we are configuring
+          # a device without wireless capabilities
+          unset IWOURLINE
+          ;;
+      esac
+
       awk '/iface/{if(/'"$DV"'/){found=1}else{found=0}}
         {if(!found){print}}
         END{print "\niface '"$DV"' inet static\n\taddress '"$IP"'\n\tnetmask '"$NM"'\n\tnetwork '"${IP%.*}.0"'";if("'"$BC"'"!=""){print "\tbroadcast '"$BC"'"};if("'"$DG"'"!=""){print "\tgateway '"$DG"'"};if("'"$NS"'"!=""){print "\tdns-nameservers '"$NS"'"};if("'"$PDV"'"!=""){print "\tvlan-raw-device '"$PDV"'"};if("'"$IWOURLINE"'"!=""){print "'"$IWOURLINE"'"};print "\n"}' \

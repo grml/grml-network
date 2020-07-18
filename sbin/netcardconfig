@@ -28,58 +28,58 @@ bailout() {
 writeiwline() {
   IWOURLINE=""
   if [ -n "$NWID" ]; then
-    IWOURLINE="$IWOURLINE wireless-nwid $NWID\n"
+    IWOURLINE="$IWOURLINE\twireless-nwid $NWID\n"
   fi
 
   if [ -n "$MODE" ]; then
-    IWOURLINE="$IWOURLINE wireless-mode $MODE\n"
+    IWOURLINE="$IWOURLINE\twireless-mode $MODE\n"
   fi
 
   if [ -n "$CHANNEL" ]; then
-    IWOURLINE="$IWOURLINE wireless-channel $CHANNEL\n"
+    IWOURLINE="$IWOURLINE\twireless-channel $CHANNEL\n"
   fi
 
   if [ -n "$FREQ" ]; then
-    IWOURLINE="$IWOURLINE wireless-freq $FREQ\n"
+    IWOURLINE="$IWOURLINE\twireless-freq $FREQ\n"
   fi
 
   if [ -n "$KEY" ]; then
     if [ "$PUBKEY" -eq 1 ]; then
       # Store the key in interfaces in wireless-key
-      IWOURLINE="$IWOURLINE wireless-key $KEY\n"
+      IWOURLINE="$IWOURLINE\twireless-key $KEY\n"
     else
       # Store the key in /etc/network/wep.$DV which is root readable only
       # Use pre-up in interfaces to read and set it
-      echo "$KEY" > "/etc/network/wep.$DV" && chmod 600 "/etc/network/wep.$DV" && IWOURLINE="$IWOURLINE pre-up KEY=\$(cat /etc/network/wep.$DV) && iwconfig $DV key \$KEY\n"
+      echo "$KEY" > "/etc/network/wep.$DV" && chmod 600 "/etc/network/wep.$DV" && IWOURLINE="$IWOURLINE\tpre-up KEY=\$(cat /etc/network/wep.$DV) && iwconfig $DV key \$KEY\n"
     fi
   fi
 
   for mod in /sys/module/rt2??0/ ; do
     if [ -d "$mod" ]; then
-      IWPREUPLINE="$IWPREUPLINE pre-up /sbin/ip link set $DV up\n"
+      IWPREUPLINE="$IWPREUPLINE\tpre-up /sbin/ip link set $DV up\n"
       break
     fi
   done
 
   if [ -n "$IWCONFIG" ]; then
-    IWPREUPLINE="$IWPREUPLINE iwconfig $IWCONFIG\n"
+    IWPREUPLINE="$IWPREUPLINE\tiwconfig $IWCONFIG\n"
   fi
 
   if [ -n "$IWSPY" ]; then
-    IWPREUPLINE="$IWPREUPLINE iwspy $IWSPY\n"
+    IWPREUPLINE="$IWPREUPLINE\tiwspy $IWSPY\n"
   fi
 
   if [ -n "$IWPRIV" ]; then
-    IWPREUPLINE="$IWPREUPLINE iwpriv $IWPRIV\n"
+    IWPREUPLINE="$IWPREUPLINE\tiwpriv $IWPRIV\n"
   fi
 
   # execute ESSID last, but make sure that it is written as first option
   if [ -n "$ESSID" ]; then
-    IWOURLINE="$IWOURLINE wireless-essid $ESSID\n"
+    IWOURLINE="$IWOURLINE\twireless-essid $ESSID\n"
   fi
 
   if [ "$WPAON" -gt 0 ]; then
-    IWOURLINE="$IWOURLINE wpa-ssid $ESSID\n wpa-psk $WPASECRET\n"
+    IWOURLINE="$IWOURLINE\twpa-ssid $ESSID\n\twpa-psk $WPASECRET\n"
   fi
 
   IWOURLINE="$IWOURLINE $IWPREUPLINE"

@@ -1,3 +1,11 @@
+grml-network (0.11.4) unstable; urgency=medium
+
+  * [5569e63] Use consistent indentation also for wireless configuration
+  * [f512c90] Do not leak wireless options into non-wireless device
+    configurations on concurrent runs
+
+ -- Michael Prokop <mika@grml.org>  Sat, 18 Jul 2020 17:04:03 +0200
+
 grml-network (0.11.3) unstable; urgency=medium
 
   [ Darshaka Pathirana ]

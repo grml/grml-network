@@ -1,19 +1,44 @@
-This package was debianized by Michael Prokop <mika@grml.org> on
-Sat, 28 Oct 2006 00:36:01 +0200.
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: grml-network
+Upstream-Contact: Michael Prokop <mika@grml.org>
+Source: https://github.com/grml/grml-network/
 
-It was downloaded from http://grml.org/repos/
+Files: *
+Copyright: 2004-2021, Michael Prokop <mika@grml.org>
+License: GPL-2
 
-Upstream Author: Michael Prokop <mika@grml.org>
+Files: sbin/grml-network
+Copyright: 2004-2014, Michael Prokop <mika@grml.org>
+           2020, Darshaka Pathirana <dpat@syn-net.org>
+           2004, Klaus Knopper
+License: GPL-2
 
-Copyright: (c) 2003+ Michael Prokop <mika@grml.org>
+Files: sbin/grml-vnet
+Copyright: 2007-2010, Michael Gebetsroither <gebi@grml.org>
+License: GPL-2
 
-License:
+Files: sbin/netcardconfig
+Copyright: 2004-2021, Michael Prokop <mika@grml.org>
+           2018, Mykola Malkov <mmalkov@sipwise.com>
+           2013, frenbu <frenbu@yahoo.it>
+           2004-2007, Stefan Lippers-Hollmann
+           2004-2007, Niall Walsh
+           2002, Klaus Knopper
+License: GPL-2
 
-The scripts written by the grml-team are available under the
-conditions of the GPL.
-
-On Debian systems, the complete text of the GNU General
-Public License can be found in `/usr/share/common-licenses/GPL'.
-
-The Debian packaging is (C) 2006, Michael Prokop <mika@grml.org> and
-is licensed under the GPL, see above.
+License: GPL-2
+ This package is free software; you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation; version 2 dated June, 1991.
+ .
+ This package is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+ .
+ You should have received a copy of the GNU General Public License
+ along with this package; if not, write to the Free Software
+ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
+ .
+ On Debian systems, the complete text of the GNU General Public License,
+ version 2 can be found in `/usr/share/common-licenses/GPL-2'.

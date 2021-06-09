@@ -7,10 +7,10 @@ Build-Depends:
  debhelper-compat (= 12),
  docbook-xsl,
  xsltproc,
-Standards-Version: 4.5.0
-Homepage: https://git.grml.org/?p=grml-network.git
-Vcs-git: git://git.grml.org/grml-network.git
-Vcs-Browser: https://git.grml.org/?p=grml-network.git
+Standards-Version: 4.5.1
+Homepage: https://github.com/grml/grml-network/
+Vcs-git: https://github.com/grml/grml-network/
+Vcs-Browser: https://github.com/grml/grml-network/
 Origin: Grml
 Bugs: mailto:bugs@grml.org
 
@@ -47,4 +47,5 @@ Description: network related helper scripts
   * grml-network: interface for several network related tasks
   * grml-router: set up your box as NAT-router
   * grml-sniff: script for configuring a network sniffing setup
+  * grml-vnet: create tun/tap devices and add them to a bridge
   * netcardconfig: console based network configuration tool

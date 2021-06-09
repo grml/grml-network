@@ -1,3 +1,15 @@
+grml-network (0.12.0) unstable; urgency=medium
+
+  * [fe2884b] Rework debian/ to follow current best practices
+    - Switch to minimal debhelper approach
+    - Provide debian/source/format
+    - Bump Standards-Version to 4.5.1
+    - Switch all Homepage and Vcs-* headers to
+      https://github.com/grml/grml-network
+    - Convert debian/copyright to machine-readable format
+
+ -- Michael Prokop <mika@grml.org>  Wed, 09 Jun 2021 15:31:56 +0200
+
 grml-network (0.11.4) unstable; urgency=medium
 
   * [5569e63] Use consistent indentation also for wireless configuration

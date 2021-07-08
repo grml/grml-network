@@ -24,6 +24,20 @@ bailout() {
   exit "${1:-0}"
 }
 
+check_for_blocked_devices() {
+  if ! command -v rfkill &>/dev/null ; then
+    echo "Warning: rfkill executable not present, skipping check for blocked devices."
+    return 0
+  fi
+
+  # if we detect any blocked devices (SOFT or HARD) then report
+  if rfkill | grep -w 'blocked' ; then
+    return 0
+  fi
+
+  return 1
+}
+
 # This function produces the IWOURLINE for interfaces
 writeiwline() {
   IWOURLINE=""
@@ -585,6 +599,15 @@ while (true); do
   # first get the device
   if [ "$count" -gt 1 ]; then
     if "${INTERACTIVE}" ; then
+
+      # Unblock possibly locked devices?
+      if [ $iswireless -gt 0 ] && check_for_blocked_devices; then
+        RF_INFO=$(rfkill | sed 's/$/\\n/')  # ensure we have a proper newline layout within dialog
+        if $DIALOG --yesno "Disabled wireless devices detected:\n\n${RF_INFO}\n\nPlease ensure that any possibly existing hardware switches are disabled.\nDo you want to unblock all of them?" 0 0; then
+          rfkill unblock all
+        fi
+      fi
+
       rm -f "$TMP"
       $DIALOG --menu "$MESSAGE1" 18 60 12 "${DEVICELIST[@]}" "${EXITMENU[@]}" 2>"$TMP" || bailout
       read -r DV <"$TMP" ; rm -f "$TMP"

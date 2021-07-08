@@ -27,21 +27,6 @@ bailout() {
 # This function produces the IWOURLINE for interfaces
 writeiwline() {
   IWOURLINE=""
-  if [ -n "$NWID" ]; then
-    IWOURLINE="$IWOURLINE\twireless-nwid $NWID\n"
-  fi
-
-  if [ -n "$MODE" ]; then
-    IWOURLINE="$IWOURLINE\twireless-mode $MODE\n"
-  fi
-
-  if [ -n "$CHANNEL" ]; then
-    IWOURLINE="$IWOURLINE\twireless-channel $CHANNEL\n"
-  fi
-
-  if [ -n "$FREQ" ]; then
-    IWOURLINE="$IWOURLINE\twireless-freq $FREQ\n"
-  fi
 
   if [ -n "$KEY" ]; then
     if [ "$PUBKEY" -eq 1 ]; then
@@ -60,18 +45,6 @@ writeiwline() {
       break
     fi
   done
-
-  if [ -n "$IWCONFIG" ]; then
-    IWPREUPLINE="$IWPREUPLINE\tiwconfig $IWCONFIG\n"
-  fi
-
-  if [ -n "$IWSPY" ]; then
-    IWPREUPLINE="$IWPREUPLINE\tiwspy $IWSPY\n"
-  fi
-
-  if [ -n "$IWPRIV" ]; then
-    IWPREUPLINE="$IWPREUPLINE\tiwpriv $IWPRIV\n"
-  fi
 
   # execute ESSID last, but make sure that it is written as first option
   if [ -n "$ESSID" ]; then
@@ -196,65 +169,21 @@ configiface() {
     if [ $iswireless -gt 0 ] && $DIALOG --yesno "$MESSAGE13" 8 45; then
       WLDEVICECOUNT="$(LANG=C LC_MESSAGEWS=C iwconfig "$DV" 2>/dev/null | wc -l)"
       ESSID=""
-      NWID=""
-      MODE=""
-      CHANNEL=""
-      FREQ=""
-      SENS=""
-      RATE=""
       KEY=""
-      RTS=""
-      FRAG=""
-      IWCONFIG=""
-      IWSPY=""
-      IWPRIV=""
 
       if [ -f /etc/network/interfaces ]; then
         awk '/iface/{if(/'"$DV"'/){found=1}else{found=0}}
           /essid/{if(found){for(i=NF;i>=2;i--)essid=$i "~" essid}}
-          /nwid/{if(found){nwid=$NF}}
-          /mode/{if(found){mode=$NF}}
-          /channel/{if(found){channel=$NF}}
-          /freq/{if(found){freq=$NF}}
-          /sens/{if(found){sens=$NF}}
-          /rate/{if(found){rate=$NF}}
-          /rts/{if(found){rts=$NF}}
-          /frag/{if(found){frag=$NF}}
-          /iwconfig/{if(!/KEY/){if(found){iwconfig=$NF}}}
-          /iwspy/{if(found){iwspy=$NF}}
-          /iwpriv/{if(found){iwpriv=$NF}}
           /wireless[-_]key/{if(found){gsub(/^\W*wireless[-_]key\W*/,"");key=$0}}
           END{
             if (!(length(essid))){essid="~~~"}
-            if (!(length(nwid))){nwid="~~~"}
-            if (!(length(mode))){mode="~~~"}
-            if (!(length(channel))){channel="~~~"}
-            if (!(length(freq))){freq="~~~"}
-            if (!(length(sens))){sens="~~~"}
-            if (!(length(rate))){rate="~~~"}
-            if (!(length(rts))){rts="~~~"}
-            if (!(length(frag))){frag="~~~"}
-            if (!(length(iwconfig))){iwconfig="~~~"}
-            if (!(length(iwspy))){iwspy="~~~"}
-            if (!(length(iwpriv))){iwpriv="~~~"}
             if (!(length(key))){key="~~~"}
-            print essid" "nwid" "mode" "channel" "freq" "sens" "rate" "rts" "frag" "iwconfig" "iwspy" "iwpriv" "key
+            print essid" "key
           }' /etc/network/interfaces >"$TMP"
 
-        read -r ESSID NWID MODE CHANNEL FREQ SENS RATE RTS FRAG IWCONFIG IWSPY IWPRIV KEY<"$TMP"
+        read -r ESSID KEY<"$TMP"
 
         [[ "$ESSID" =~ ^~~~$ ]]    && ESSID=""
-        [[ "$NWID" =~ ^~~~$ ]]     && NWID=""
-        [[ "$MODE" =~ ^~~~$ ]]     && MODE=""
-        [[ "$CHANNEL" =~ ^~~~$ ]]  && CHANNEL=""
-        [[ "$FREQ" =~ ^~~~$ ]]     && FREQ=""
-        [[ "$SENS" =~ ^~~~$ ]]     && SENS=""
-        [[ "$RATE" =~ ^~~~$ ]]     && RATE=""
-        [[ "$RTS" =~ ^~~~$ ]]      && RTS=""
-        [[ "$FRAG" =~ ^~~~$ ]]     && FRAG=""
-        [[ "$IWCONFIG" =~ ^~~~$ ]] && IWCONFIG=""
-        [[ "$IWSPY" =~ ^~~~$ ]]    && IWSPY=""
-        [[ "$IWPRIV" =~ ^~~~$ ]]   && IWPRIV=""
         [[ "$KEY" =~ ^~~~$ ]]      && KEY=""
 
         # shellcheck disable=SC2088
@@ -272,7 +201,7 @@ configiface() {
           PUBKEY=1
         fi
 
-        #echo "DEBUG:E:$ESSID N:$NWID M:$MODE C:$CHANNEL F:$FREQ S:$SENS R:$RATE K:$KEY R:$RTS F:$FRAG I:$IWCONFIG I:$IWSPY I:$IWPRIV"
+        #echo "DEBUG:E:$ESSID K:$KEY "
         rm -f "$TMP"
       fi
 
@@ -297,29 +226,11 @@ configiface() {
         done
 
         read -r ESSID <"$TMP" ; rm -f "$TMP"
-        [ -z "$MODE" ] && MODE="Managed"
-
       else
 
         $DIALOG --inputbox "$MESSAGEW4 $DEVICENAME $MESSAGEW5" 15 50 "$ESSID" 2>"$TMP" || bailout 1
         read -r ESSID <"$TMP" ; rm -f "$TMP"
         [ -z "$ESSID" ] && ESSID="any"
-
-        $DIALOG --inputbox "$MESSAGEW6 $DEVICENAME $MESSAGEW7" 15 50 "$NWID" 2>"$TMP" || bailout 1
-        read -r NWID <"$TMP" ; rm -f "$TMP"
-
-        $DIALOG --inputbox "$MESSAGEW8 $DEVICENAME $MESSAGEW9" 15 50 "$MODE" 2>"$TMP" || bailout 1
-        read -r MODE <"$TMP" ; rm -f "$TMP"
-        [ -z "$MODE" ] && MODE="Managed"
-
-        $DIALOG --inputbox "$MESSAGEW10 $DEVICENAME $MESSAGEW11" 15 50 "$CHANNEL" 2>"$TMP" || bailout 1
-        read -r CHANNEL <"$TMP" ; rm -f "$TMP"
-
-        if [ -z "$CHANNEL" ]; then
-          $DIALOG --inputbox "$MESSAGEW12 $DEVICENAME $MESSAGEW13" 15 50 "$FREQ" 2>"$TMP" || bailout 1
-          read -r FREQ <"$TMP" ; rm -f "$TMP"
-        fi
-
       fi
 
       WPAON=0
@@ -399,12 +310,6 @@ configiface() {
             done
 
             rm -f "$TMP"
-
-            case $WPA_DEV in
-                 hostap)
-                 MODE="Managed"
-                 ;;
-            esac
          else
             WPASECRET=""
          fi
@@ -423,15 +328,6 @@ configiface() {
             fi
          fi
       fi
-
-      $DIALOG --inputbox "$MESSAGEW16 $DEVICENAME $MESSAGEW17" 15 50 "$IWCONFIG" 2>"$TMP" || bailout 1
-      read -r IWCONFIG <"$TMP" ; rm -f "$TMP"
-
-      $DIALOG --inputbox "$MESSAGEW18 $DEVICENAME $MESSAGEW19" 15 50 "$IWSPY" 2>"$TMP" || bailout 1
-      read -r IWSPY <"$TMP" ; rm -f "$TMP"
-
-      $DIALOG --inputbox "$MESSAGEW20 $DEVICENAME $MESSAGEW21" 15 50 "$IWPRIV" 2>"$TMP" || bailout 1
-      read -r IWPRIV <"$TMP" ; rm -f "$TMP"
 
       unset IWOURLINE
       if [ "$iswireless" = "1" ] ; then
@@ -567,23 +463,9 @@ MESSAGE15="Interface enabled, do you want it auto enabled at boot?"
 MESSAGE16="Configure VLAN on this interface?"
 MESSAGE17="Please enter VLAN id for"
 MESSAGEW4="Enter the ESSID for"
-MESSAGEW5="\n\n\n(empty for 'any', not recommended !)\n"
-MESSAGEW6="Enter the NWID (cell identifier)\nfor"
-MESSAGEW7=", if needed\n\n\n"
-MESSAGEW8="Enter the mode for"
-MESSAGEW9="\n\n(Managed(=default), Ad-Hoc, Master,\nRepeater, Secondary, auto)\n"
-MESSAGEW10="Enter channel number for"
-MESSAGEW11="\n\n(0 bis 16, empty for auto or if you want to\n enter the frequency next)\n"
-MESSAGEW12="Enter the frequency for"
-MESSAGEW13="\n\n(e.g 2.412G, empty for auto)"
+MESSAGEW5="\n(empty for 'any', not recommended!)\n"
 MESSAGEW14="Enter the encryption key\nfor"
 MESSAGEW15="\n\n(empty for cleartext, not recommended !!)"
-MESSAGEW16="Enter additional parameters for\n'iwconfig"
-MESSAGEW17="' if needed, e.g.\n\n\nsens -80  rts 512  frag 512  rate 5.5M"
-MESSAGEW18="Enter additional parameters for\n'iwspy"
-MESSAGEW19="' if needed\n\n\n"
-MESSAGEW20="Enter additional parameters for\n'iwpriv"
-MESSAGEW21="' if needed\n\n\n"
 MESSAGEW22="Enable WPA support?"
 MESSAGEW23="Enter the WPA passphrase (passphrase must be 8..63 characters) for"
 MESSAGEW25="Would you like to store your wep key in it's own private file ("

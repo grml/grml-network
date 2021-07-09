@@ -1,3 +1,10 @@
+grml-network (0.13.0) unstable; urgency=medium
+
+  * [20ae649] netcardconfig: drop uncommon wireless/WiFi options
+  * [f44d92a] Implement rfkill support for enabling blocked devices
+
+ -- Michael Prokop <mika@grml.org>  Fri, 09 Jul 2021 09:15:36 +0200
+
 grml-network (0.12.0) unstable; urgency=medium
 
   * [fe2884b] Rework debian/ to follow current best practices

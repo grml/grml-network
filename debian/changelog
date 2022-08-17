@@ -1,3 +1,10 @@
+grml-network (0.14.0) unstable; urgency=medium
+
+  * [5681e2b] netcardconfig: avoid suggesting default gateway if a default
+    route exists already
+
+ -- Michael Prokop <mika@grml.org>  Wed, 17 Aug 2022 16:50:38 +0200
+
 grml-network (0.13.0) unstable; urgency=medium
 
   * [20ae649] netcardconfig: drop uncommon wireless/WiFi options

@@ -410,7 +410,12 @@ configiface() {
       $DIALOG --inputbox "$MESSAGE8 $DV" 10 45 "${BC:-${IP%.*}.255}" 2>"$TMP" || bailout 1
       read -r BC <"$TMP" ; rm -f "$TMP"
 
-      $DIALOG --inputbox "$MESSAGE9" 10 45 "${DG:-${IP%.*}.1}" 2>"$TMP"
+      # if we already have a default route, don't suggest to add another one as that might fail
+      __default_gw=""
+      if ! route -en | grep -q '^0.0.0.0' ; then
+        __default_gw="${DG:-${IP%.*}.1}"
+      fi
+      $DIALOG --inputbox "$MESSAGE9" 10 45 "${__default_gw}" 2>"$TMP"
       read -r DG <"$TMP" ; rm -f "$TMP"
 
       if [ -f "/etc/resolv.conf" ]; then

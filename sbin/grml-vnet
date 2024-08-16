@@ -52,22 +52,18 @@ function fromCmdline()
 function createTun()
 {
     local args_=''
-    if [[ $OPT_USER_ != '' ]]; then args_="$args_ -u $OPT_USER_"; fi
-    if [[ $OPT_GROUP_ != '' ]]; then args_="$args_ -u $OPT_GROUP_"; fi
-    tunctl -t "$1" $args_
+    if [[ $OPT_USER_ != '' ]]; then args_="$args_ user $OPT_USER_"; fi
+    if [[ $OPT_GROUP_ != '' ]]; then args_="$args_ group $OPT_GROUP_"; fi
+    ip tuntap add mode tap name "$1" $args_
     if [[ $OPT_BRIDGE_ != '' ]]; then
-        brctl addif "$OPT_BRIDGE_" "$1"
+        ip link set dev "$1" master "$OPT_BRIDGE_"
     fi
     ip link set up dev "$1"
 }
 
 function trashTun()
 {
-    ip link set down dev "$1"
-    if [[ $OPT_BRIDGE_ != '' ]]; then
-        brctl delif "$OPT_BRIDGE_" "$1"
-    fi
-    tunctl -d "$1"
+    ip link del "$1"
 }
 
 function die()
@@ -101,17 +97,17 @@ fi
 
 if [[ $OPT_DEL_ == 'false' ]]; then
     if [[ $OPT_BRIDGE_ != '' && $OPT_AUTO_ == 'true' ]]; then
-        brctl showmacs "$OPT_BRIDGE_" &>/dev/null || brctl addbr "$OPT_BRIDGE_"
+        ip link ls type bridge dev "$OPT_BRIDGE_" &>/dev/null || ip link add name "$OPT_BRIDGE_" type bridge
         ip link set up dev "$OPT_BRIDGE_"
     fi
     fromCmdline "createTun" "$@"
 else
     fromCmdline "trashTun" "$@"
     if [[ $OPT_BRIDGE_ != '' && $OPT_AUTO_ == 'true' ]]; then
-        tmp_="`brctl showmacs "$OPT_BRIDGE_" |wc -l`"
-        if (( $tmp_ == 1 )); then
+        tmp_=$(ip link ls master "$OPT_BRIDGE_")
+        if [[ -z "$tmp_" ]]; then
             ip link set down dev "$OPT_BRIDGE_"
-            brctl delbr "$OPT_BRIDGE_"
+            ip link del "$OPT_BRIDGE_"
         else
             die "E: bridge $OPT_BRIDGE_ not empty, not removing"
         fi

@@ -30,7 +30,6 @@ Recommends:
  nmap,
  pppoeconf,
  resolvconf,
- uml-utilities,
  vpnc,
  wireless-tools,
  wpasupplicant,

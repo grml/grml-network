@@ -55,7 +55,7 @@ writeiwline() {
 
   for mod in /sys/module/rt2??0/ ; do
     if [ -d "$mod" ]; then
-      IWPREUPLINE="$IWPREUPLINE\tpre-up /sbin/ip link set $DV up\n"
+      IWPREUPLINE="$IWPREUPLINE\tpre-up ip link set $DV up\n"
       break
     fi
   done

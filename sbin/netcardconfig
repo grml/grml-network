@@ -306,7 +306,7 @@ configiface() {
                             if(found){
                                     gsub(/\W*#.*$/,"");
                                     if (gsub(/^\W*wpa-psk\W*/,"")){
-                                            gsub(/\W.*$/,"");
+                                            gsub(/[[:space:]]*$/,"");
                                             print;
                                             exit;
                                     }

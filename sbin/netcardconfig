@@ -146,7 +146,12 @@ remauto(){
 scanwlan(){
   i=0
   ip link set "$DV" up
-  iwlist "$DV" scanning | grep "ESSID\|Quality" | sed -e "s/^.*ESSID:\"\|\"$//g" | tac > "$TMP"
+  iw dev "$DV" scan | awk '
+    /^BSS /       { if (ssid != "" && signal != "") print ssid "\t" signal; ssid=""; signal="" }
+    /^\t+SSID: ./ { s=$0; sub(/^\s*SSID: /,"",s); ssid=s }
+    /^\t+signal:/  { s=$0; sub(/^\s*/,"",s); signal=s }
+    END            { if (ssid != "" && signal != "") print ssid "\t" signal }
+  ' | sort | awk -F'\t' '{ print $1; print $2 }' > "$TMP"
   while read -r line
   do
     WARRAY[i++]=$line
@@ -306,7 +311,7 @@ configiface() {
                             if(found){
                                     gsub(/\W*#.*$/,"");
                                     if (gsub(/^\W*wpa-psk\W*/,"")){
-                                            gsub(/\W.*$/,"");
+                                            gsub(/[[:space:]]*$/,"");
                                             print;
                                             exit;
                                     }

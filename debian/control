@@ -23,6 +23,7 @@ Depends:
  grml-etc-core,
  iproute2,
  iptables,
+ iw,
  psmisc,
  zsh,
  ${misc:Depends},

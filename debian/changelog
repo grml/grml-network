@@ -1,3 +1,11 @@
+grml-network (0.15.2) unstable; urgency=medium
+
+  [ Michael Prokop ]
+  * [80480ca] netcardconfig: fix usage of special characters in WiFi passwords
+  * [2074408] netcardconfig: rework WLAN scanning to support modern WiFi drivers
+
+ -- Chris Hofstaedtler <ch@grml.org>  Tue, 05 May 2026 17:27:51 +0200
+
 grml-network (0.15.1) unstable; urgency=medium
 
   * [5231b89] d/control: Set X-Style: black

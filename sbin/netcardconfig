@@ -148,8 +148,8 @@ scanwlan(){
   ip link set "$DV" up
   iw dev "$DV" scan | awk '
     /^BSS /       { if (ssid != "" && signal != "") print ssid "\t" signal; ssid=""; signal="" }
-    /^\t+SSID: ./ { s=$0; sub(/^\s*SSID: /,"",s); ssid=s }
-    /^\t+signal:/  { s=$0; sub(/^\s*/,"",s); signal=s }
+    /^\t+SSID: ./ { s=$0; sub(/^[[:space:]]*SSID: /,"",s); ssid=s }
+    /^\t+signal:/  { s=$0; sub(/^[[:space:]]*/,"",s); signal=s }
     END            { if (ssid != "" && signal != "") print ssid "\t" signal }
   ' | sort | awk -F'\t' '{ print $1; print $2 }' > "$TMP"
   while read -r line
@@ -567,7 +567,7 @@ while read -r dev mac; do
   fi
 #echo "Made to ${NETDEVICES[$NETDEVICESCOUNT]}"
   ((NETDEVICESCOUNT++))
-done < <(ip link show | awk ' !/^\s/{sub(/:/,"",$2);IFACE=$2} /link.ether/{if (IFACE !~/^vmnet/) print IFACE" "$2}')
+done < <(ip link show | awk ' !/^[[:space:]]/{sub(/:/,"",$2);IFACE=$2} /link.ether/{if (IFACE !~/^vmnet/) print IFACE" "$2}')
 for dev in $LAN; do
   if [ "$(ethtool -i "${dev}" 2>/dev/null|awk '/^bus-info:/{print $2}')" == "ieee1394" ]; then
     isauto="0"
